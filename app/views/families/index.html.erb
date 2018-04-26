@@ -26,7 +26,12 @@
             </tr>
         <% end %>
       <% end -%>
+
     </table>
+    <%= will_paginate @active_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+
+    <br>
+
   </div>
 
   <div class='col s6'>
@@ -56,10 +61,12 @@
         <% end %>
       <% end -%>
     </table>
+    <br>
+    <%= will_paginate @inactive_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+
   </div>
 </div>
-<br />
-<%= will_paginate @inactive_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
 
 <p>&nbsp;</p>
 
