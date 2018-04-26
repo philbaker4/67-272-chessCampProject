@@ -20,6 +20,7 @@ class UsersController < ApplicationController
       redirect_to(@current_user, :notice => 'User was successfully updated.')
     else
       render :action => "edit"
+    end
   end
 
 

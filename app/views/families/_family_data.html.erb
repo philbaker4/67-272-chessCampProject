@@ -5,6 +5,11 @@
     <b>Phone   </b>  <%= "#{@family.phone}" %><br>
     <b>Email   </b>  <%= "#{@family.email}" %><br>
     <b>Username</b>  <%= "#{@family.username}" %><br>
+    <% if @family.active %>
+      <b><%= "Active" %></b>
+    <% else %>
+      <b><%= "Inactive" %></b>
+    <% end %><br><br>
 
 
 
