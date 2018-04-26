@@ -11,6 +11,13 @@ html {
 
 
 
+#login {
+  text-align: right;
+  vertical-align: middle;
+  background: black;
+  color: white;
+  font-size: 125%;
+}
 
 #topbar {
   background-color: #ff1744;
@@ -23,6 +30,11 @@ html {
 #nav {
   background-color: black;
   height: 50px;
+}
+
+.nav-links{
+    font-size: 125%
+
 }
 
 

@@ -11,6 +11,15 @@
   </head>
 
   <body>
+    <div id='login'>
+      <% if logged_in? %>
+      
+      <%= current_user.username.capitalize %> : <%= current_user.role.capitalize %>
+      <%= link_to 'Logout', logout_path , class: 'links'%> &nbsp;&nbsp; &nbsp;
+      <% else %>
+        <%= link_to 'Login', login_path  , class: 'links'%> &nbsp;&nbsp; &nbsp;
+      <% end %>
+    </div>
     <!-- Partials for the topbar and navigation -->
     <%= render :partial => "partials/topbar" %>
     <%= render :partial => "partials/nav" %>

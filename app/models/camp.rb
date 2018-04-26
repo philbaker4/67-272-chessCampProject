@@ -35,6 +35,7 @@ class Camp < ApplicationRecord
   scope :full, -> { joins(:registrations).group(:camp_id).having('count(*) = max_students') }
   scope :empty, -> { joins("left join registrations on camps.id=registrations.camp_id").where("registrations.student_id is null") }
 
+  TIME_SLOTS = [['Morning','am'], ['Afternoon','pm']]
 
   # instance methods
   def name

@@ -28,4 +28,8 @@ class User < ApplicationRecord
     self.phone = self.phone.to_s.gsub(/[^0-9]/,"")
   end
 
+  def self.authenticate(email,password)
+    find_by_email(email).try(:authenticate, password)
+  end
+
 end
