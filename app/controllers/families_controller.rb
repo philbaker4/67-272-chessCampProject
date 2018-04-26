@@ -1,53 +1,54 @@
-class CampsController < ApplicationController
-  before_action :set_camp, only: [:show, :edit, :update, :destroy]
+class FamiliesController < ApplicationController
+  before_action :set_family, only: [:show, :edit, :update, :destroy]
   authorize_resource
 
 
   def index
-    @active_camps = Camp.all.active.alphabetical.paginate(:page => params[:active_camps]).per_page(10)
-    @inactive_camps = Camp.all.inactive.alphabetical.paginate(:page => params[:inactive_camps]).per_page(1)
+    @active_families = Family.all.active.alphabetical.paginate(:page => params[:active_families]).per_page(10)
+    @inactive_families = Family.all.inactive.alphabetical.paginate(:page => params[:inactive_families]).per_page(10)
   end
 
   def show
-    @instructors = @camp.instructors.alphabetical.paginate(page: params[:page]).per_page(5)
+    @active_students = @family.students.active.alphabetical.paginate(page: params[:page]).per_page(7)
+    @inactive_students = @family.students.inactive.alphabetical.paginate(page: params[:page]).per_page(7)
   end
 
   def edit
   end
 
   def new
-    @camp = Camp.new
+    @family = Family.new
   end
 
   def create
-    @camp = Camp.new(camp_params)
-    if @camp.save
-      redirect_to camp_path(@camp), notice: "#{@camp.name} was added to the system."
+    @family = Family.new(family_params)
+    if @family.save
+      redirect_to family_path(@family), notice: "The #{@family.family_name} family was added to the system."
     else
       render action: 'new'
     end
   end
 
   def update
-    @camp.update(camp_params)
-    if @camp.save
-      redirect_to camp_path(@camp), notice: "#{@camp.name} was revised in the system."
+    @family.update(family_params)
+    if @family.save
+      redirect_to family_path(@family), notice: "The #{@family.family_name} family was revised in the system."
     else
       render action: 'edit'
     end
   end
 
   def destroy
-    @camp.destroy
-    redirect_to camps_url, notice: "#{@camp.name} was removed from the system."
+    @family.destroy
+    redirect_to families_url, notice: "The #{@family.family_name} family was removed from the system."
   end
 
   private
-    def set_camp
-      @camp = Camp.find(params[:id])
+    def set_family
+      @family = Family.find(params[:id])
     end
 
-    def camp_params
-      params.require(:camp).permit(:curriculum_id, :location_id, :cost, :start_date, :end_date, :time_slot, :max_students, :active)
+    def family_params
+      params.require(:family).permit(:family_name, :parent_first_name, :user_id)
     end
 end

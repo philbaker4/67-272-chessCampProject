@@ -1,0 +1,39 @@
+
+<div class = 'col s8 offset-m2'>
+
+  <%= simple_form_for(@curriculum) do |f| %>
+    <%= f.error_notification %>
+
+
+
+
+
+
+    <div class="row">
+      <%= f.input :name, wrapper_html: {class: 'col s6'}%>
+
+      <%= f.input :min_rating, wrapper_html: {class: 'col s3'}%>
+      <%= f.input :max_rating, wrapper_html: {class: 'col s3'}%>
+
+    </div>
+
+    <div class = 'row'>
+      <%= f.input :description, wrapper_html: {class: 'col s12 materialize-textarea'}%>
+
+     
+    </div>
+    <div class="row">
+      <%= f.input :active %>
+
+    </div>
+
+
+    <br>
+    <div class="row">
+      <div class="form-actions col s8">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+
+</div>

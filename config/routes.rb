@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :instructors
   resources :locations
   resources :curriculums
+  resources :families
+  resources :students
 
   resources :users
   resources :sessions
