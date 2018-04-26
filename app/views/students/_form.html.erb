@@ -1,0 +1,67 @@
+
+<div class = 'col s8 offset-m2'>
+
+  <%= simple_form_for(@family) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="row">
+      <%= f.input :parent_first_name, wrapper_html: {class: 'col s6'}%>
+      <%= f.input :family_name, wrapper_html: {class: 'col s6'}%>
+
+
+    </div>
+
+    
+    <div class="row">
+      <%= f.input :active %>
+
+    </div>
+
+
+    <br>
+    <div class="row">
+      <div class="form-actions col s8">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+
+
+
+<!--          handle user edits with ajax  ?????
+
+    -password
+    -phone
+    -email
+
+
+
+
+  <%# simple_form_for(@family.user) do |f| %>
+    <%# f.error_notification %>
+
+    <div class="row">
+      
+      <%# f.input :password, wrapper_html: {class: 'col s6'}%>
+
+
+    </div>
+
+    
+    <div class="row">
+      <%# f.input :active %>
+
+    </div>
+
+
+    <br>
+    <div class="row">
+      <div class="form-actions col s8">
+        <%# f.button :submit %>
+      </div>
+    </div>
+  <%# end %>
+
+-->
+
+</div>
