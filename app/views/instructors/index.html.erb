@@ -1,37 +1,36 @@
-<p id="notice"><%= notice %></p>
+<h4>Instructors</h4>
+<table class="striped highlight">
+  <% if @instructors.empty?  %>
+    There are no instructors in the system at this time
+  <%else%>
+    <thead>
+      <th class="align_center">Name</th> 
+      <th class="align_center">Phone</th>
+      <th class="align_center">Camps</th>
+      <th class="align_center">Options</th>
+    </thead>
+    <% for instructor in @instructors.active.alphabetical %>
+        <tr>
+          <td class="align_center"><%= link_to "#{instructor.name}", instructor_path(instructor), class: 'links' %></td>
+          <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
+          <td class="align_center"><%= "#{instructor.camps.count}" %></td>
+          
 
-<% if @instructors.empty? %>
-  <h3>There are no instructors in the system at this time</h3>
-<% else %>
-  <h3>Instructors</h3>
-
-  <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Camps</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @instructors.each do |instructor| %>
-      <tr>
-        <td><%= link_to instructor.name, instructor %></td>
-        <td><%= number_to_phone instructor.phone %></td>
-        <td><%= instructor.camps.size %></td>
-        <td><%= link_to 'Edit', edit_instructor_path(instructor), :class=>"btn waves-effect waves-light blue" %></td>
-      </tr>
+          <td class="align_center">
+            <%= link_to edit_instructor_path(instructor) do %>
+                <i class="material-icons color-icons">edit</i>
+            <% end %>
+            
+          </td>
+        </tr>
     <% end %>
-  </tbody>
+  <% end -%>
 </table>
+<br />
+<%= will_paginate @instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 
-<span class="paginate">
-  <%= will_paginate @instructors, :previous_label => "Previous&nbsp;", :next_label => "&nbsp;Next", :param_name => 'instructors' %>
-</span>
+<p>&nbsp;</p>
 
-    <% end %>
-
-<%= link_to 'New instructor', new_instructor_path %>
-
+<p><strong>
+<%= link_to "Add a New Instructor", new_instructor_path, class: 'waves-effect waves-light btn' %> 
+</strong></p>

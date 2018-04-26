@@ -1,15 +1,11 @@
 <div class="row">
-  <div class="col s7">
-    <%= render :partial => "camp_details" %>
+  <div class="col s8 offset-m2">
+    <h4>Camp Details</h4>
+    <%= render partial: "camp_data" %>
   </div>
-  <div class="col s5">
-    <%= render :partial => "camp_instructors"%>
-    <%# render :partial => "camp_students"%>
-  </div>
+
 </div>
-<div class="row">
-  <div class="col s12">
-    <%= render :partial => "partials/object_options", locals: {model_name: "camp", object: @camp} %>
-  </div>
+<div class="col s12 offset-m3">
+  <%= render :partial => "partials/object_options", locals: {model_name: "camp", object: @camp} %>
 </div>
 

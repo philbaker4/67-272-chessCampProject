@@ -1,12 +1,42 @@
-<% if @active_locations.empty? %>
-  <h3>There are no active locations in the system at this time</h3>
-<% else %>
-  <%= render :partial => "locations_list", locals: {locations: @active_locations, state: "Active"} %>
-<% end %>
-<br>
-<% unless @inactive_locations.empty? %>
-  <%= render :partial => "locations_list", locals: {locations: @inactive_locations, state: "Inactive"} %>
-<% end %>
+<h4>Locations</h4>
+<table class="striped highlight">
+  <% if @active_locations.empty?  %>
+    There are no active locations in the system at this time
+  <%else%>
+    <thead>
+      <th class="align_center">Name</th>
+      <th class="align_center">Address</th>
+      <th class="align_center">Capacity</th>
+
+      <th class="align_center">Options</th>
+    </thead>
+    <% for location in @active_locations.alphabetical %>
+        <tr>
+          <td class="align_center"><%= link_to "#{location.name}", location_path(location), class: 'links' %></td>
+          <td class="align_center"><%= "#{location.street_1}" %>
+          <% if !location.street_2.nil? %>
+            <%= "#{location.street_2}" %>
+          <% end %>
+            <%= "#{location.city}, #{location.state} #{location.zip}" %>
+          </td>
+          <td class="align_center"><%= "#{location.max_capacity}"%></td>
 
 
-<%= link_to 'New Location', new_location_path %>
+          <td class="align_center">
+            <%= link_to edit_location_path(location) do %>
+                <i class="material-icons color-icons">edit</i>
+            <% end %>
+            
+          </td>
+        </tr>
+    <% end %>
+  <% end -%>
+</table>
+<br />
+<%= will_paginate @active_locations, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+<p>&nbsp;</p>
+
+<p><strong>
+<%= link_to "Add a New Location", new_location_path, class: 'waves-effect waves-light btn' %> 
+</strong></p>

@@ -1,22 +1,40 @@
-<%= simple_form_for(@location) do |f| %>
-  <%= f.error_notification %>
-  <div class="row">
-    <div class="form-inputs">
-      <%= f.input :name, label_html: { class: 'active' } %>
-      <%= f.input :street_1, label_html: { class: 'active' } %>
-      <%= f.input :street_2, label_html: { class: 'active' } %>
-      <%= f.input :city, label_html: { class: 'active' } %>
-      <%= f.input :state, label_html: { class: 'active' }, collection: Location::STATES_LIST, include_blank: true %>
-      <%= f.input :zip, label_html: { class: 'active' } %>
-      <%= f.input :max_capacity, label_html: { class: 'active' } %>
-      <%= f.input :active %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-actions col s8">
-      <%= f.button :submit %>
-    </div>
-  </div>
-<% end %>
 
-  
+<div class = 'col s8 offset-m2'>
+
+ <%= simple_form_for(@location) do |f| %>
+  <%= f.error_notification %>
+
+
+
+    <div class="row">
+
+      <%= f.input :name, wrapper_html: {class: 'col s8'}%>
+        <%= f.input :max_capacity, wrapper_html: {class: 'col s4'}%>
+    </div>
+
+    <div class="row">
+        <%= f.input :street_1, wrapper_html: {class: 'col s12'}%>
+    </div>
+    <div class="row">
+        <%= f.input :street_2, wrapper_html: {class: 'col s12'}%>
+    </div>
+
+    <div class="row">
+      <%= f.input :city, wrapper_html: {class: 'col s6'}%>
+      <%= f.input :state, collection: Location::STATES_LIST, include_blank:true, wrapper_html: {class: 'col s3'}%>
+      <%= f.input :zip, wrapper_html: {class: 'col s3'}%>
+    </div>
+    <div class="row">
+        <%= f.input :active %>
+    </div>
+
+      
+
+    <br>
+    <div class="row">
+      <div class="form-actions col s8 offset-m2">
+        <%= f.button :submit %>
+      </div>
+    </div>
+  <% end %>
+</div>

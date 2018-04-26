@@ -8,7 +8,7 @@ class LocationsController < ApplicationController
 
   def show
     # For sidebar card
-    @upcoming_camps_at_location = @location.camps.upcoming.chronological
+    @upcoming_camps_at_location = @location.camps.upcoming.chronological.paginate(page: params[:page]).per_page(5)
   end
 
   def edit

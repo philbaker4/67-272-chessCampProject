@@ -1,6 +1,8 @@
-<h1>Editing Curriculum</h1>
+<h5 class="col s8 offset-m2">Editing Curriculum</h5>
 
 <%= render 'form', curriculum: @curriculum %>
 
-<%= link_to 'Show', @curriculum %> |
-<%= link_to 'Back', curriculums_path %>
+<div class="row col s12">
+  <%= link_to 'Show', @curriculum , class: "links"%> |
+  <%= link_to 'Back', curriculums_path, class: "links" %>
+</div>

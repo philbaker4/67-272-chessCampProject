@@ -1,28 +1,36 @@
 <%= simple_form_for(@camp) do |f| %>
   <%= f.error_notification %>
+
   <div class="row">
-    <div class="form-inputs">
-      <%= f.input :location_id, collection: Location.alphabetical.active.to_a, include_blank: true %>
-      <%= f.input :curriculum_id, collection: Curriculum.alphabetical.active.to_a, include_blank: true %>
-      <%= f.input :cost, label_html: { class: 'active' } %>
-      <%= f.input :time_slot, collection: [["Morning","am"],["Afternoon","pm"]], include_blank: true %>
-      <%= f.input :start_date, label_html: { class: 'active'} %>
-      <%= f.input :end_date, label_html: { class: 'active' } %>
-      <%= f.input :max_students, label_html: { class: 'active' } %>
-      <%= f.input :active %>
-	  <%# f.input :active, as: :radio_buttons %>
-    </div>
+      <%= f.input :curriculum_id, collection: Curriculum.active.alphabetical, include_blank:true, wrapper_html: {class: 'col s6'}%>
+      <%= f.input :location_id, collection: Location.active.alphabetical, include_blank:true, wrapper_html: {class: 'col s6'}%>
   </div>
+
+  <div class="row" >
+      <%= f.input :cost, wrapper_html: {class: 'col s4'}%>
+      <%= f.input :max_students, wrapper_html: {class: 'col s4'}%>
+      <%= f.input :time_slot, collection: Camp::TIME_SLOTS, include_blank:true, wrapper_html: {class: 'col s4'}%>
+
+
+  </div>
+  <div class='row'>
+    <%= f.input :start_date, wrapper_html: {class: 'col s3'}%>
+    <%= f.input :end_date, :order => [:month, :day, :year], wrapper_html: {class: 'col s3'}%>
+  </div>
+  <div class='row'>
+    <%= f.input :active %>
+
+  </div>
+
+
+
+
+  <br>
   <div class="row">
-    <div class="form-actions col s8">
+    <div class="form-actions col s12">
+
       <%= f.button :submit %>
+
     </div>
   </div>
 <% end %>
-
-
-  <!--times = @camp.time_slot == "am" ? [["Morning", "am"], ["Afternoon", "pm"]] : [["Afternoon", "pm"], ["Morning", "am"]]
-      <%# f.select :time_slot, times, :prompt => "Select Time of Day..." %>-->
-
-      
-      

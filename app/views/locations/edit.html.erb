@@ -1,6 +1,9 @@
-<h1>Editing Location</h1>
+<h5 class=" col s8 offset-m2">Editing Location</h5>
 
 <%= render 'form', location: @location %>
 
-<%= link_to 'Show', @location %> |
-<%= link_to 'Back', locations_path %>
+
+<div class="row col s12">
+  <%= link_to 'Show', @location , class: 'links'%> |
+  <%= link_to 'Back', locations_path, class: 'links' %>
+</div>

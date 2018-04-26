@@ -2,12 +2,12 @@ class InstructorsController < ApplicationController
   before_action :set_instructor, only: [:show, :edit, :update, :destroy]
 
   def index
-    @instructors = Instructor.all.alphabetical.paginate(:page => params[:page]).per_page(12)
+    @instructors = Instructor.all.alphabetical.paginate(:page => params[:page]).per_page(10)
   end
 
   def show
-    @past_camps = @instructor.camps.past.chronological
-    @upcoming_camps = @instructor.camps.upcoming.chronological
+    @past_camps = @instructor.camps.past.chronological.paginate(page: params[:page]).per_page(5)
+    @upcoming_camps = @instructor.camps.upcoming.chronological.paginate(page: params[:page]).per_page(5)
   end
 
   def edit

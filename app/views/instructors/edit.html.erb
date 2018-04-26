@@ -1,6 +1,10 @@
-<h1>Editing Instructor</h1>
+<h5 class="col s8 offset-m2">Editing Instructor</h5>
 
 <%= render 'form', instructor: @instructor %>
 
-<%= link_to 'Show', @instructor %> |
-<%= link_to 'Back', instructors_path %>
+
+<div class="row col s12">
+
+  <%= link_to 'Show', @instructor, class: 'links' %> |
+  <%= link_to 'Back', instructors_path, class: 'links' %>
+</div>

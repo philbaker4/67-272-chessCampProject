@@ -1,22 +1,40 @@
+
 <div class="row">
-  <div class="col s8">
-    <h4>New Instructor for <%= @camp.name %>:</h4>
+  <div class="col s8 offset-m2">
+    <h4>New Camp Instructor:</h4>
     <%= simple_form_for(@camp_instructor) do |f| %>
       <%= f.error_notification %>
       <div class="row">
-        <div class="form-inputs">
-          <%= f.input :instructor_id, collection: Instructor.active.alphabetical.to_a, include_blank: true %>
+        <div class="form-inputs col s8">
+          <%= f.input :instructor_id, collection: Instructor.active.alphabetical, include_blank: true, wrapper_html: { class: "col s12" }%>
           <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
+
+          
         </div>
       </div>
-      <div class="row">
+      <div class="row col s3">
         <div class="form-actions col s8">
-          <%= f.button :submit %>
+          <%= f.button :submit, "Add instructor to camp" %>
         </div>
       </div>
+
+      <br><br><br>
+      <% unless @camp.instructors.empty? %> 
+
+        <h5>Current Camp Instructors</h5>
+        <div class='row col s8'>
+          <ul>
+            <% for instructor in @camp.instructors %>
+              <li>
+                <%= link_to instructor.proper_name, instructor_path(instructor), style: 'color:#000'%>            
+              </li>
+            <%end%>
+
+          </ul>
+          
+        <%end%>
+        </div>
     <% end %>
   </div>
-  <div class="col s4">
-    <%= render :partial => "other_instructors" %>
-  </div>
+  
 </div>

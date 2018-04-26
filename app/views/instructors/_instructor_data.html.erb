@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= "#{@instructor.proper_name}" %> </h4>
+
+    <b>Email</b>&nbsp;&nbsp; <%= "#{@instructor.email}" %><br>
+    
+    <b>Phone</b>&nbsp;&nbsp; <%= "#{@instructor.phone.insert(3,'-').insert(7,'-')}" %><br>
+
+    <b>Bio</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= "#{@instructor.bio}" %><br>
+
+
+    <%if @instructor.active %>
+      <b>Active</b>
+    <% else %>
+      <b>Inactive</b>
+    <% end -%><br><br>
+
+    <h5>Upcoming Camps</h5>&nbsp;
+    
+
+    <table class="striped highlight">
+      <% if @instructor.camps.empty?  %>
+        No upcoming camps at this time
+      <%else%>
+        <thead>
+          <th class="align_center">Name</th>
+          <th class="align_center">Start</th>
+          <th class="align_center">Time</th>
+          <th class="align_center">Max Students</th>
+        </thead>
+        <% for camp in @instructor.camps.chronological %>
+          <tr>
+            <td class="align_center"><%= link_to "#{camp.name}", camp_path(camp), class: 'links' %></td>
+            <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+            <% if (camp.time_slot == "am") %>
+              <td class="align_center">Morning</td>
+            <% else %>
+              <td class="align_center">Afternoon</td>
+            <% end -%>
+            
+            <td class="align_center"><%= "#{camp.max_students}" %></td>
+
+          </tr>
+        <% end %>
+      <% end -%>
+    </table>
+
+
+
+  
+
+
+      
+  </div>
+</div>

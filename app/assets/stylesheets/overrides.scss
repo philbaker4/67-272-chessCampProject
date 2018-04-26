@@ -1,31 +1,203 @@
+
+
+html {
+  // Preloaded with four fonts; uncomment the one you prefer
+  //font-family: 'Nunito', sans-serif;
+  // font-family: 'Bitter', serif;
+   font-family: 'Josefin Sans', sans-serif;
+  // font-family: 'Varela Round', sans-serif;
+
+}
+
+
+
+
+#topbar {
+  background-color: #ff1744;
+  padding-top: 5px;
+  margin-bottom: 0px;
+  color: #black;
+}
+
+
+#nav {
+  background-color: black;
+  height: 50px;
+}
+
+
+/********** FLASH MSGS ********/
+#flash_notice, #flash_error, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px;
+}
+
+#flash_notice {
+  background-color: #ff1744;
+  border: solid 1px #6C6;
+  color: #000;
+}
+
+#flash_error, #flash_alert {
+  background-color: #ff1744;
+  border: solid 1px #C66;
+  color: #000;
+}
+
+
+/********** FOOTER ********/
+
+#footer {
+  background-color: black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  color: #fff;
+  line-height: 2rem;
+}
+#footer .links {
+  color : white;
+}
+
+#footer .email {
+  color : #ff5252;
+}
+
+#footer a {
+  color: #ffd600;
+}
+
+
+
+/********** TABLES ********/
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table.striped > tbody > tr:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+table.highlight > tbody > tr:hover {
+  background-color: #eeeeee;
+}
+
+td.align_right {
+  text-align: right;
+}
+
+td.align_center {
+  text-align: center;
+}
+
+th.align_right {
+  text-align: right;
+}
+
+th.align_center {
+  text-align: center;
+}
+
+
+
+/********** BUTTONS ********/
+.btn {
+  background-color: #ff1744;
+  color: #000;
+}
+
+.btn:hover {
+  background-color: #ff5252;
+  color: #000;
+}
+
+.btn-secondary {
+  background-color: #ff1744;
+  color: #000;
+}
+
+.btn-secondary:hover {
+  background-color: #ff5252;
+  color: #000;
+}
+
+.btn-alert {
+  background-color: #ff1744;
+  color: #000;
+}
+.btn-alert:hover {
+  background-color: #ff5252;
+  color: #000;
+}
+
+
+
+
+
+
 /********** FORMS ********/
 .switch label input[type=checkbox]:checked + .lever {
-  background-color: #2979ff;
+  background-color: #ff1744;
 }
 
 .switch label input[type=checkbox]:checked + .lever::after {
-  background-color: #303F9F;
+  background-color: #ff1744;
 }
 
-/********** CARDS ********/
-.card a {
-  color: #e0f7fa;
+.picker__date-display {
+  background-color: #ff1744;
+  color: #000;
 }
 
-.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
-  color: #e0f7fa;
+.picker__year-display {
+  color: #000;
 }
 
-.card .remove {
-  color: #b71c1c;
+input[type=text].search {
+  border-bottom: none;
+  margin-left: 10px;
+
 }
 
-/********** BUTTONS ********/
-.btn-alert {
-  background-color: #c62828;
-  color: #fff;
+
+.input-field label{
+  color : #000;
 }
-.btn-alert:hover {
-  background-color: #e53935;
-  color: #fff;
+
+.input-field input[type=text]:focus + label {
+  color: #000;
+}
+.input-field input[type=text]:focus {
+ border-bottom: 1px solid #000;
+ box-shadow: 0 1px 0 0 #000;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+  border-radius: 50%;
+  transform: scale(0.9);
+  background-color: #ff1744;
+  color: #000;
+}
+
+.check_boxes.optional.filled-in {
+  background-color: #ff1744;
+}
+
+[type="checkbox"].filled-in:checked+label:after {
+  border: 2px solid #000;
+  background-color: #ff1744;
+}
+
+[type="radio"]:checked + label:after, [type="radio"].with-gap:checked + label:after {
+  border: 2px solid #000;
+  background-color: #ff1744;
+}
+
+/***** OTHER STUFF ******/
+i.color-icons {
+  color : #ff5252;
+}
+
+.links {
+  color : #ff5252;
 }

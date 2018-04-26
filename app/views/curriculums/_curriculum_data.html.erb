@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= @curriculum.name %> </h4><br>
+
+    <%= "#{@curriculum.description}" %><br><br>
+    <%= "Ratings  " %>
+    <% if @curriculum.min_rating == 0 %>
+      <%= "Unrated - #{@curriculum.max_rating}" %>
+    <% else %>
+      <%= "#{@curriculum.min_rating} - #{@curriculum.max_rating}" %>
+    <% end %><br>
+    <% if @curriculum.active %>
+      <%= "Active" %>
+    <% else %>
+      <%= "Inactive" %>
+    <% end %><br><br>
+
+
+    <h5>Camps</h5>
+    <% if @curriculum.camps.empty? %>
+      <%= "No camps at this time" %>
+    <% else %>
+      <b>Upcoming Camps</b>
+      <table class="striped highlight">
+
+        <% if @upcoming_camps_using.empty? %>
+          <%= "There are no upcoming camps for this curriculum" %>
+        <% else %> 
+          <thead>
+            <th class="align_center">Location</th>
+            <th class="align_center">Dates</th>
+            <th class="align_center">Time Slot</th>
+
+          </thead>
+
+          <% for camp in @upcoming_camps_using.alphabetical %>
+            <tr>
+              <td class="align_center"> <%= link_to "#{camp.location.name}", location_path(camp.location) , class: "links"%></td>
+              <td class="align_center"><%= link_to "#{camp.start_date.strftime('%m/%d/%y')} - #{camp.end_date.strftime('%m/%d/%y')}" , camp_path(camp)%></td>
+              <td class="align_center"><% if camp.time_slot == "am" %>
+                  Morning
+                <% else %>
+                  Afternoon
+                <% end %></td>
+            </tr>
+          <%end%>
+
+
+        <%end%>
+      </table><br>
+      <%= will_paginate @upcoming_camps_using, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+
+      <br><br>
+
+
+      <b>Past Camps</b>
+      <table class="striped highlight">
+        
+        <% if @past_camps_using.empty? %>
+        <br>
+          <%= "There are no past camps for this curriculum" %>
+        <% else %> 
+          <thead>
+            <th>Location</th>
+            <th>Dates</th>
+            <th>Time Slot</th>
+
+          </thead>
+
+          <% for camp in @past_camps_using.alphabetical %>
+            <tr>
+              <td> <%= link_to "#{camp.location.name}", location_path(camp.location), class: "links" %></td>
+              <td><%= link_to "#{camp.start_date.strftime('%m/%d/%y')} - #{camp.end_date.strftime('%m/%d/%y')}" , camp_path(camp), class: "links"%></td>
+              <td><% if camp.time_slot == "am" %>
+                  Morning
+                <% else %>
+                  Afternoon
+                <% end %></td>
+            </tr>
+          <%end%>
+
+
+        <%end%>
+      </table><br>
+      <%= will_paginate @past_camps_using, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+    <%  end %>
+
+
+
+
+
+
+
+
+  </div>
+</div>

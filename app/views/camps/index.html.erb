@@ -1,6 +1,42 @@
-<%= render partial: "partials/index_structure", locals: {model_name: "camp", 
-                                                         primary: "active_camps", 
-                                                         secondary: "inactive_camps",
-                                                         sidebar: nil} %>
+<h4>Camps</h4>
+<table class="striped highlight">
+  <% if @active_camps.empty?  %>
+    There are no camps in the system at this time
+  <%else%>
+    <thead>
+      <th class="align_center">Name</th>
+      <th class="align_center">Start</th>
+      <th class="align_center">Time</th>
+      <th class="align_center">Max Students</th>
+      <th class="align_center">Options</th>
+    </thead>
+    <% for camp in @active_camps.chronological %>
+      <tr>
+        <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+        <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+        <% if (camp.time_slot == "am") %>
+          <td class="align_center">Morning</td>
+        <% else %>
+          <td class="align_center">Afternoon</td>
+        <% end -%>
+        
+        <td class="align_center"><%= "#{camp.max_students}" %></td>
+        <td class="align_center">
+          <%= link_to edit_camp_path(camp) do %>
+              <i class="material-icons color-icons">edit</i>
+          <% end %>
+          
+        </td>
+      </tr>
+    <% end %>
+  <% end -%>
+</table>
+<br />
+<%= will_paginate @active_camps, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
 
+<p>&nbsp;</p>
 
+<p><strong>
+<%= link_to "Add a New Camp", new_camp_path, class: 'waves-effect waves-light btn' %> 
+</strong></p>
+  

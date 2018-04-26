@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= @camp.name %> </h4><br />
+
+    <%= "#{@camp.curriculum.description}" %><br><br>
+
+    <b>Location:&nbsp;&nbsp;</b>
+    <%= "#{@camp.location.name}" %><br>
+
+
+
+    <b>Cost:&nbsp;&nbsp;</b>
+      <%= "$#{'%.2f' % @camp.cost}" %><br>
+
+    <b>Date:&nbsp;&nbsp;</b>
+      <%= "#{@camp.start_date.strftime('%m/%d/%y')} - #{@camp.end_date.strftime('%m/%d/%y')}" %><br>
+    <b>Time Slot:</b>
+      <% if @camp.time_slot == "am" %>
+        Morning
+      <% else %>
+        Afternoon
+      <% end %><br>
+
+
+    <b><%= @camp.active ? "Active" : "Inactive" %></b><br>
+    
+    <h5>Camp Instructors:<%= link_to new_camp_instructor_path(camp_id: @camp.id) do %>
+      <i class="material-icons color-icons small">add</i>
+    <% end %></h5>
+
+    <table class="striped highlight">
+      <% if @instructors.empty?  %>
+        No instructors at this time
+      <%else%>
+        <thead>
+          <th class="align_center">Name</th>
+          <th class="align_center">Phone</th>
+          <th class="align_center">Email</th>
+
+          <th class="align_center">Options</th>
+          
+        </thead>
+        <% for camp_instructor in @camp.camp_instructors %>
+          <% instructor = camp_instructor.instructor %>
+          <tr>
+            <td class="align_center"><%= link_to "#{instructor.proper_name}", instructors_path(instructor), class: "links" %></td>
+            <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
+            <td class="align_center"><%= "#{instructor.email}" %></td>
+            <td class="align_center"><%= link_to  camp_instructor, confirm: "Are you sure you want to remove #{instructor.proper_name} from this camp?", method: :delete, class: 'remove links' do %>
+              <i class="material-icons">delete</i>
+            <% end %></td>
+            
+
+          </tr>
+        <% end %>
+      <% end -%>
+    </table><br>
+    <%= will_paginate @instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+
+
+      
+  </div>
+</div>

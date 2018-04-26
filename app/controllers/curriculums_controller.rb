@@ -2,12 +2,13 @@ class CurriculumsController < ApplicationController
   before_action :set_curriculum, only: [:show, :edit, :update, :destroy]
 
   def index
-    @curriculums = Curriculum.all
+    @curriculums = Curriculum.all.paginate(page: params[:page]).per_page(10)
   end
 
   def show
-    @past_camps_using = @curriculum.camps.past.chronological
-    @upcoming_camps_using = @curriculum.camps.upcoming.chronological
+    @past_camps_using = Camp.for_curriculum(@curriculum.id).past.chronological.paginate(page: params[:page]).per_page(5)
+    @upcoming_camps_using = Camp.for_curriculum(@curriculum.id).upcoming.chronological.paginate(page: params[:page]).per_page(5)
+
   end
 
   def edit

@@ -1,22 +1,35 @@
-<%= simple_form_for(@instructor) do |f| %>
-  <%= f.error_notification %>
-  <div class="row">
-    <div class="form-inputs">
-      <%= f.input :first_name, label_html: { class: 'active' } %>
-      <%= f.input :last_name, label_html: { class: 'active' } %>
-      <%= f.input :bio, label_html: { class: 'active' } %>
-      <%# f.input :email, label_html: { class: 'active' } %>
-      <%# f.input :phone, label_html: { class: 'active' } %>
-      <%= f.input :user_id, label_html: { class: 'active' } %>
-      <%= f.input :active %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="form-actions col s8">
-      <%= f.button :submit %>
-    </div>
-  </div>
-<% end %>
+<div class = 'col s8 offset-m2'>
+
+  <%= simple_form_for(@instructor) do |f| %>
+    <%= f.error_notification %>
 
 
+      <div class="row">
+        <%= f.input :first_name, wrapper_html: {class: 'col s6'}%>
+        <%= f.input :last_name, wrapper_html: {class: 'col s6'}%>
 
+      </div>
+
+      <div class="row">
+
+        <%= f.input :email, wrapper_html: {class: 'col s6'}%>
+        <%= f.input :phone, wrapper_html: {class: 'col s6'}%>
+
+      </div>
+
+      <div class = 'row'>
+        <%= f.input :bio, wrapper_html: {class: 'col s12 materialize-textarea'}%>
+      </div>
+
+      <div class="row">
+        <%= f.input :active %>
+      </div>
+      
+      <br>
+      <div class="row">
+        <div class="form-actions col s8 ">
+          <%= f.button :submit %>
+        </div>
+      </div>
+  <% end %>
+</div>

@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= @location.name %> </h4>
+
+
+    <%= "#{@location.street_1}" %><br>
+    <% if !@location.street_2.nil? %>
+      <%= "#{@location.street_2}" %><br>
+    <% end %>
+    <%= "#{@location.city}, #{@location.state} #{@location.zip}" %><br>
+  
+    <%= "Maximum Capacity  " %>
+
+    <%= "#{@location.max_capacity}" %><br><br>
+    <h5>Upcoming Camps</h5>
+  <table class="striped highlight">
+    <% if @location.camps.empty? %>
+      <%= "No camps at this time_slot" %>
+    <% else %> 
+      <thead>
+        <th>Curriculum</th>
+        <th>Dates</th>
+        <th>Time Slot</th>
+
+      </thead>
+
+      <% for camp in @upcoming_camps_at_location %>
+        <tr>
+          <td> <%= link_to "#{camp.curriculum.name}", camp_path(camp) , class: 'links'%></td>
+          <td><%= "#{camp.start_date.strftime('%m/%d/%y')} - #{camp.end_date.strftime('%m/%d/%y')}"%></td>
+          <td><% if camp.time_slot == "am" %>
+              Morning
+            <% else %>
+              Afternoon
+            <% end %></td>
+        </tr>
+      <%end%>
+
+
+    <%end%>
+  </table><br>
+  <%= will_paginate @upcoming_camps_at_location, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+
+  </div>
+</div>

@@ -7,7 +7,7 @@ class CampsController < ApplicationController
   end
 
   def show
-    @instructors = @camp.instructors.alphabetical
+    @instructors = @camp.instructors.alphabetical.paginate(page: params[:page]).per_page(5)
   end
 
   def edit
