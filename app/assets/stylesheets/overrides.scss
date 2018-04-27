@@ -7,9 +7,8 @@ html {
    font-family: 'Josefin Sans', sans-serif;
   // font-family: 'Varela Round', sans-serif;
 
+
 }
-
-
 
 #login {
   text-align: right;
@@ -34,6 +33,20 @@ html {
 
 .nav-links{
     font-size: 125%
+
+}
+
+.tabs .tab a{
+  color: grey;
+}
+
+.tabs .tab a.active, .tabs .tab a:hover  {
+  color: black;
+
+}
+
+.tabs .indicator {
+  background-color: #ff1744;
 
 }
 
@@ -210,6 +223,15 @@ i.color-icons {
   color : #ff5252;
 }
 
-.links {
-  color : #ff5252;
+.links, .pagination .current{
+  color : black;
+}
+
+.pagination a{
+  color : #ff1744;
+}
+
+
+.pagination > * {
+    margin-right: 0.1em;
 }

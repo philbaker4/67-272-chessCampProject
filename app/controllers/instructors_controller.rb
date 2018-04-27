@@ -3,7 +3,9 @@ class InstructorsController < ApplicationController
   authorize_resource
 
   def index
-    @instructors = Instructor.all.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @active_instructors = Instructor.all.active.alphabetical.paginate(:page => params[:page]).per_page(7)
+    @inactive_instructors = Instructor.all.inactive.alphabetical.paginate(:page => params[:page]).per_page(7)
+
   end
 
   def show

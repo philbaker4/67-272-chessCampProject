@@ -1,84 +1,100 @@
+<div class="container" id='student-index'>
+      
+  <div id="main">
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s6"><a  href="#active-students" id = 'index-tabs'>Active Students</a></li>
+          <li class="tab col s6"><a href="#inactive-students" id='index-tabs'>Inactive Students</a></li>
+        </ul>
+      </div>
 
-<div class = 'row'>
-  <div class='col s6'>
-    <h4>Active Students</h4>
-    <table class="striped highlight">
-      <% if @active_students.empty?  %>
-        There are no active students in the system at this time
-      <%else%>
-        <thead>
-          <th class="align_center">Name</th>
-          <th class="align_center">Date of Birth</th>
-          <th class="align_center">Rating</th>
-          <th class="align_center">Options</th>
+      <div id="active-students" class="col s12">
+        
+          <% if @active_students.empty?  %>
+            <br>
+            There are no active students in the system at this time
+          <%else%>
+          <table class="striped highlight">
+            <thead>
+              <th class="align_center">Name</th>
+              <th class="align_center">Date of Birth</th>
+              <th class="align_center">Rating</th>
+              <th class="align_center">Options</th>
 
-        </thead>
+            </thead>
 
-        <% for student in @active_students %>
-          <tr>
-            <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
-            <td class="align_center"><%= "#{student.date_of_birth}" %></td>
-            <td class="align_center"><%= "#{student.rating}" %></td>
-            <td class="align_center">
-              <%= link_to edit_student_path(student) do %>
-                  <i class="material-icons color-icons">edit</i>
-              <% end %> 
-            </td>
-          </tr>
-        <%end%>
-       
-      <% end -%>
+            <% for student in @active_students %>
+              <tr>
+                <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
+                <td class="align_center"><%= "#{student.date_of_birth}" %></td>
+                <td class="align_center"><%= "#{student.rating}" %></td>
+                <td class="align_center">
+                  <%= link_to edit_student_path(student) do %>
+                      <i class="material-icons color-icons">edit</i>
+                  <% end %> 
+                </td>
+              </tr>
+            <%end%>
+           
+          <% end -%>
 
-    </table>
+        </table>
         <br>
 
-    <%= will_paginate @active_students, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+        <%= will_paginate @active_students, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+        <br>
 
-    <br>
 
-  </div>
+      </div>
 
-   <div class='col s6'>
-    <h4>Inactive Students</h4>
-    <table class="striped highlight">
-      <% if @inactive_students.empty?  %>
-        There are no inactive students in the system at this time
-      <%else%>
-        <thead>
-          <th class="align_center">Name</th>
-          <th class="align_center">Date of Birth</th>
-          <th class="align_center">Rating</th>
-          <th class="align_center">Options</th>
 
-        </thead>
+      <div id="inactive-students" class="col s12">
+        
+        <% if @inactive_students.empty?  %>
+          <br>
+          There are no inactive students in the system at this time
+        <%else%>
+          <table class="striped highlight">
+            <thead>
+              <th class="align_center">Name</th>
+              <th class="align_center">Date of Birth</th>
+              <th class="align_center">Rating</th>
+              <th class="align_center">Options</th>
 
-        <% for student in @inactive_students %>
-          <tr>
-            <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
-            <td class="align_center"><%= "#{student.date_of_birth}" %></td>
-            <td class="align_center"><%= "#{student.rating}" %></td>
-            <td class="align_center">
-              <%= link_to edit_student_path(student) do %>
-                  <i class="material-icons color-icons">edit</i>
-              <% end %> 
-            </td>
-          </tr>
-        <%end%>
-       
-      <% end -%>
+            </thead>
 
-    </table>
-    <br>
-    <%= will_paginate @inactive_students, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+            <% for student in @inactive_students %>
+              <tr>
+                <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
+                <td class="align_center"><%= "#{student.date_of_birth}" %></td>
+                <td class="align_center"><%= "#{student.rating}" %></td>
+                <td class="align_center">
+                  <%= link_to edit_student_path(student) do %>
+                      <i class="material-icons color-icons">edit</i>
+                  <% end %> 
+                </td>
+              </tr>
+            <%end%>
+           
+          
 
-    <br>
+          </table>
+          <br>
+          <%= will_paginate @inactive_students, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+        <% end -%>
 
-  </div>
+        <br>
 
-</div>
 
-<p>&nbsp;</p>
 
-<p><strong>
-<%= link_to "Add a New student", new_student_path, class: 'waves-effect waves-light btn' %> 
-</strong></p>
+      </div>
+
+    </div>
+
+    <!-- TABS WILL GO HERE -->
+
+  </div> <!-- end of div#main -->
+
+  
+</div> <!-- end of div.container -->

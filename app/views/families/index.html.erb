@@ -1,9 +1,18 @@
+<div class="container" id='student-index'>
+      
+  <div id="main">
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s6"><a href="#active-families">Active Families</a></li>
+          <li class="tab col s6"><a href="#inactive-families">Inactive Families</a></li>
+        </ul>
+      </div>
 
-<div class = 'row'>
-  <div class='col s6'>
-    <h4>Active Families</h4>
-    <table class="striped highlight">
+      <div id="active-families" class="col s12">
+        <table class="striped highlight">
       <% if @active_families.empty?  %>
+        <br>
         There are no active families in the system at this time
       <%else%>
         <thead>
@@ -32,12 +41,13 @@
 
     <br>
 
-  </div>
+      </div>
 
-  <div class='col s6'>
-    <h4>Inactive Families</h4>
-    <table class="striped highlight">
+
+      <div id="inactive-families" class="col s12">
+        <table class="striped highlight">
       <% if @inactive_families.empty?  %>
+        <br>
         There are no inactive families in the system at this time
       <%else%>
         <thead>
@@ -64,12 +74,17 @@
     <br>
     <%= will_paginate @inactive_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
 
-  </div>
-</div>
 
 
-<p>&nbsp;</p>
 
-<p><strong>
-<%= link_to "Add a New family", new_family_path, class: 'waves-effect waves-light btn' %> 
-</strong></p>
+
+      </div>
+
+    </div>
+
+    <!-- TABS WILL GO HERE -->
+
+  </div> <!-- end of div#main -->
+
+  
+</div> <!-- end of div.container -->

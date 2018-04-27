@@ -4,7 +4,8 @@ class CurriculumsController < ApplicationController
 
 
   def index
-    @curriculums = Curriculum.all.paginate(page: params[:page]).per_page(10)
+    @active_curriculums = Curriculum.active.paginate(page: params[:page]).per_page(5)
+    @inactive_curriculums = Curriculum.inactive.paginate(page: params[:page]).per_page(5)
   end
 
   def show
