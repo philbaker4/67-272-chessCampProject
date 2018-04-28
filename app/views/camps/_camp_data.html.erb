@@ -1,13 +1,13 @@
 <div class="card">
   <div class="card-content">
+    <%= hidden_field_tag "camp_id", @camp.id %>
+
     <h4><%= @camp.name %> </h4><br />
 
     <%= "#{@camp.curriculum.description}" %><br><br>
 
     <b>Location:&nbsp;&nbsp;</b>
     <%= "#{@camp.location.name}" %><br>
-
-
 
     <b>Cost:&nbsp;&nbsp;</b>
       <%= "$#{'%.2f' % @camp.cost}" %><br>
@@ -18,47 +18,59 @@
       <% if @camp.time_slot == "am" %>
         Morning
       <% else %>
-        Afternoon
+        Afternoon 
       <% end %><br>
 
 
     <b><%= @camp.active ? "Active" : "Inactive" %></b><br>
     
-    <h5>Camp Instructors:<%= link_to new_camp_instructor_path(camp_id: @camp.id) do %>
+    <h5>Camp Instructors:<%= link_to create_instructor_path(camp_id: @camp.id) do %>
       <i class="material-icons color-icons small">add</i>
     <% end %></h5>
+    <div id='instructors_list'>
 
-    <table class="striped highlight">
-      <% if @instructors.empty?  %>
-        No instructors at this time
-      <%else%>
-        <thead>
-          <th class="align_center">Name</th>
-          <th class="align_center">Phone</th>
-          <th class="align_center">Email</th>
-
-          <th class="align_center">Options</th>
-          
-        </thead>
-        <% for camp_instructor in @camp.camp_instructors %>
-          <% instructor = camp_instructor.instructor %>
-          <tr>
-            <td class="align_center"><%= link_to "#{instructor.proper_name}", instructors_path(instructor), class: "links" %></td>
-            <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
-            <td class="align_center"><%= "#{instructor.email}" %></td>
-            <td class="align_center"><%= link_to  camp_instructor, confirm: "Are you sure you want to remove #{instructor.proper_name} from this camp?", method: :delete, class: 'remove links' do %>
-              <i class="material-icons">delete</i>
-            <% end %></td>
+      <table class="striped highlight">
+        <% if @instructors.empty?  %>
+          No instructors at this time
+        <%else%>
+          <thead>
+            <th class="align_center">Name</th>
+            <th class="align_center">Phone</th>
+            <th class="align_center">Email</th>
+            <th class="align_center">Options</th>
             
+          </thead>
 
+          <tr is='instructor-row' 
+            v-for='instructor in instructors' 
+            v-bind:instructor='instructor'>  
           </tr>
-        <% end %>
-      <% end -%>
-    </table><br>
-    <%= will_paginate @instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+        <% end -%>
+      </table><br>
+
+    </div>
+
+      <br>
 
 
 
       
   </div>
 </div>
+
+
+<script type="text/x-template" id="instructor-row">
+    <tr>
+      <td class="align_center" >{{ instructor.first_name }}</td>
+      <td class="align_center" >{{ instructor.phone }}</td>
+      <td class="align_center" >{{ instructor.email }}</td>
+      <td  class="align_center" v-on:click="remove_record(instructor)">Delete</td>
+    </tr>
+</script>
+
+
+
+
+
+
+<!--"#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td> -->

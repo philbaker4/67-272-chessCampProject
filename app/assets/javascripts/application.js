@@ -14,8 +14,10 @@
 //= require rails-ujs
 //= require materialize-sprockets
 //= require materialize-form
-//= require_tree .
+//= require turbolinks 
 //= require vue
+//= require_tree .
+
 
 // $( document ).ready(function () {
 //     $('select').material_select();

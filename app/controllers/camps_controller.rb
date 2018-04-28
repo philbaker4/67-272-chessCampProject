@@ -1,15 +1,13 @@
 class CampsController < ApplicationController
-  before_action :set_camp, only: [:show, :edit, :update, :destroy]
-  authorize_resource
-
+  before_action :set_camp, only: [:show, :edit, :update, :destroy, :instructors]
 
   def index
-    @active_camps = Camp.all.active.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @inactive_camps = Camp.all.inactive.alphabetical.paginate(:page => params[:page]).per_page(1)
+    @active_camps = Camp.all.active.alphabetical.paginate(:page => params[:active_camps]).per_page(10)
+    @inactive_camps = Camp.all.inactive.alphabetical.paginate(:page => params[:inactive_camps]).per_page(1)
   end
 
   def show
-    @instructors = @camp.instructors.alphabetical.paginate(page: params[:page]).per_page(5)
+    @instructors = @camp.instructors.alphabetical
   end
 
   def edit
@@ -40,6 +38,10 @@ class CampsController < ApplicationController
   def destroy
     @camp.destroy
     redirect_to camps_url, notice: "#{@camp.name} was removed from the system."
+  end
+
+  def instructors
+    @instructors = Instructor.for_camp(@camp).alphabetical
   end
 
   private
