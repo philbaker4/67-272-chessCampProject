@@ -33,7 +33,6 @@ html {
 
 .nav-links{
     font-size: 125%
-
 }
 
 .tabs .tab a{
@@ -50,6 +49,9 @@ html {
 
 }
 
+.links {
+  color: #ff1744;
+}
 
 /********** FLASH MSGS ********/
 #flash_notice, #flash_error, #flash_alert {
@@ -223,7 +225,7 @@ i.color-icons {
   color : #ff5252;
 }
 
-.links, .pagination .current{
+ .pagination .current{
   color : black;
 }
 

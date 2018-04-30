@@ -14,7 +14,6 @@
 //= require rails-ujs
 //= require materialize-sprockets
 //= require materialize-form
-//= require turbolinks 
 //= require vue
 //= require_tree .
 
@@ -32,3 +31,11 @@
 //     closeOnSelect: false // Close upon selecting a date,
 //   });
 // });
+
+
+// Flash fade
+$(function() {
+   $('.alert-box').fadeIn('normal', function() {
+      $(this).delay(3700).fadeOut();
+   });
+});

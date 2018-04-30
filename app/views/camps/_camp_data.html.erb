@@ -21,37 +21,41 @@
         Afternoon 
       <% end %><br>
 
-
     <b><%= @camp.active ? "Active" : "Inactive" %></b><br>
-    
-    <h5>Camp Instructors:<%= link_to create_instructor_path(camp_id: @camp.id) do %>
-      <i class="material-icons color-icons small">add</i>
-    <% end %></h5>
+
     <div id='instructors_list'>
+      <div class='row'>
+        <div class='col s6'>
+          <h5>Camp Instructors:
 
-      <table class="striped highlight">
-        <% if @instructors.empty?  %>
-          No instructors at this time
-        <%else%>
-          <thead>
-            <th class="align_center">Name</th>
-            <th class="align_center">Phone</th>
-            <th class="align_center">Email</th>
-            <th class="align_center">Options</th>
+            <a href="#" v-on:click="switch_modal"> <i class="material-icons color-icons small">add</i></a>
+
+          </h5>
+
+          <div v-show="instructors.length > 0" > 
             
-          </thead>
+            <ul is='instructor-row' 
+              v-for="instructor in instructors" 
+              v-bind:instructor="instructor"
+              class="no_bullet">  
+            </ul>
 
-          <tr is='instructor-row' 
-            v-for='instructor in instructors' 
-            v-bind:instructor='instructor'>  
-          </tr>
-        <% end -%>
-      </table><br>
+            <br>
+          </div>
 
+          <div v-show="instructors.length == 0">
+            No instructors at this time
+          </div>
+        </div>
+
+    
+        <div v-if="modal_open" class='col s6' >
+
+          <new-instructor-form></new-instructor-form>
+        </div>
+
+      </div>
     </div>
-
-      <br>
-
 
 
       
@@ -59,16 +63,48 @@
 </div>
 
 
-<script type="text/x-template" id="instructor-row">
-    <tr>
-      <td class="align_center" >{{ instructor.first_name }}</td>
-      <td class="align_center" >{{ instructor.phone }}</td>
-      <td class="align_center" >{{ instructor.email }}</td>
-      <td  class="align_center" v-on:click="remove_record(instructor)">Delete</td>
-    </tr>
+
+
+<script type="text/x-template" id="camp-instructor-form-template">
+  <!-- create an empty camp instructor object to work with -->
+  <% @camp_instructor = CampInstructor.new %>
+  <!-- now the form template itself -->
+  
+    <div class="col s12">
+      <h5>New Instructor:</h5>
+      <%= simple_form_for(@camp_instructor) do |f| %>
+        <%= f.error_notification %>
+        <div class="row">
+          <div class="form-inputs">
+            <%= f.input :instructor_id, collection: Instructor.active.alphabetical.to_a, include_blank: true %>
+
+
+            <!--     handle only the possible isntructors   find returns nil  -->
+            <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-actions col s8">
+            <%= f.button :submit,  "Add" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  
+
 </script>
 
+<script type="text/x-template" id='instructor-row'>
 
+    <li>
+      <% if logged_in? and current_user.role?(:admin) %> 
+        <a v-on:click="remove_record(instructor)" class="remove links">x&nbsp;&nbsp;</a>
+      <%end%>
+      {{ instructor.first_name }}, {{ instructor.last_name }}
+    </li>
+</script>
+
+  
 
 
 

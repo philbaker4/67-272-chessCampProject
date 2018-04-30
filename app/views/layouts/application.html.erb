@@ -6,14 +6,8 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Bitter|Josefin+Sans|Nunito|Varela+Round" %>
-    <%= javascript_include_tag 'application', "data-turbolinks-track" => true %>
 
         <%= csrf_meta_tags %>
-
-
-
-    
-    
   </head>
 
   <body>
@@ -28,14 +22,22 @@
     </div>
     <!-- Partials for the topbar and navigation -->
     <%= render :partial => "partials/topbar" %>
-    <%= render :partial => "partials/nav" %>
-    
+
+    <% if logged_in? and current_user.role?(:admin) %>
+      <%= render :partial => "partials/admin_nav" %>
+    <% elsif logged_in? and current_user.role?(:instructor) %>
+      <%= render :partial => "partials/instructor_nav" %>
+    <% elsif logged_in? and current_user.role?(:parent) %>
+      <%= render :partial => "partials/parent_nav" %>
+    <% else  %>
+      <%= render :partial => "partials/guest_nav" %>
+    <% end %>
+
     <div class="container col s8">
       <div class="row">
         <div class="col s12">
           <!-- Flash messages appear here -->
           <%= render :partial => "partials/flash" %>
-
           <!-- MAIN CONTENT OF TEMPLATE GOES HERE -->
           <%= yield %>
 
@@ -48,6 +50,7 @@
 
 
 
+    <%= javascript_include_tag 'application'%>
 
     <script type="text/javascript" charset="utf-8">
       $(document).ready(function(){

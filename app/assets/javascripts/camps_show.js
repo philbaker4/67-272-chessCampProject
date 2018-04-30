@@ -1,5 +1,4 @@
 
-$(document).on('turbolinks:load', function() {
 
   ////////////////////////////////////////////////
   //// Setting up a general ajax method to handle
@@ -21,12 +20,26 @@ $(document).on('turbolinks:load', function() {
     })
   } 
 
+
+  
+        Vue.component('error-row', {
+          // Defining where to look for the HTML template in the index view
+          template: '#error-row',
+
+          // Passed elements to the component from the Vue instance
+          props: {
+            error: String,
+            msg: Array
+          },
+        });
+
   ///////////////////////////////////////////////////////
   //// A component to create a camp instructor list item
   ///////////////////////////////////////////////////////
   Vue.component('instructor-row', {
 
-    template: '#instructor-row',
+   
+  template: '#instructor-row',
 
     props: {
       instructor: Object
@@ -44,7 +57,7 @@ $(document).on('turbolinks:load', function() {
 
     methods: {
       remove_record: function(instructor){
-        run_ajax('DELETE', {instructor: instructor}, '/camps/'.concat(this.camp_id, '/instructors/',instructor['id'],'.json'));
+        run_ajax('DELETE', {instructor: instructor}, '/camps/'.concat(this.camp_id, '/instructors/',instructor['id']));
       }
 
     }
@@ -101,6 +114,7 @@ $(document).on('turbolinks:load', function() {
     created() {
       this.camp_id = $('#camp_id').val();
     },
+    
 
     methods: {
       switch_modal: function(event){
@@ -111,10 +125,8 @@ $(document).on('turbolinks:load', function() {
         run_ajax('GET', {}, '/camps/'.concat(this.camp_id, '/instructors.json'), function(res){instructors.instructors = res});
       }
     },
-
     mounted: function(){
       this.get_instructors();
     }
   });
 
-});

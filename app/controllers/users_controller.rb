@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     if @user.save 
       session[:user_id] = @user.id
       redirect_to(home_path)
+    end
 
   end
 
