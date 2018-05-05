@@ -1,0 +1,11 @@
+
+<% if logged_in? and current_user.role?(:admin) %>
+  # admin stuff 
+<%elsif logged_in? and current_user.role?(:instructor) %>
+  # instructor stuff
+<%elsif logged_in? and current_user.role?(:parent)%>
+  <%= render :partial => "parent_dashboard" %>
+
+<%else%>
+  <%redirect_to home_path%>
+<%end%>

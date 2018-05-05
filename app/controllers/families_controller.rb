@@ -22,11 +22,26 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(family_params)
-    if @family.save
-      redirect_to family_path(@family), notice: "The #{@family.family_name} family was added to the system."
-    else
+    @user = User.new(user_params)
+    @user.role = "family"
+    if !@user.save
+        flash[:notice] = "first"
+
+      @family.valid?
+      flash[:notice] = "secinbd"
       render action: 'new'
+    else
+      @family.user_id = @user.id
+      if @family.save
+        flash[:notice] = "The #{@family.family_name} family account was created."
+        redirect_to family_path(@family) 
+      else
+        render action: 'new'
+      end      
     end
+
+
+   
   end
 
   def update
@@ -49,6 +64,10 @@ class FamiliesController < ApplicationController
     end
 
     def family_params
-      params.require(:family).permit(:family_name, :parent_first_name, :user_id)
+      params.require(:family).permit(:family_name, :parent_first_name, :username, :email, :phone, :password, :password_confirmation)
     end
+
+    def user_params
+    params.require(:family).permit(:username, :email, :phone, :password, :password_confirmation)
+  end
 end

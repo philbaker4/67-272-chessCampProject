@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get 'home/contact', to: 'home#contact', as: :contact
   get 'home/privacy', to: 'home#privacy', as: :privacy
   get 'home/search', to: 'home#search', as: :search
-  root 'home#index'
+  get 'dashboards/show', to: 'dashboards#show', as: :dashboard
+
+  root 'dashboards#show'
 
   # Routes for main resources
   resources :camps
@@ -15,9 +17,9 @@ Rails.application.routes.draw do
   resources :curriculums
   resources :families
   resources :students
-
   resources :users
   resources :sessions
+  
   get 'user/edit' => 'users#edit', :as => :edit_current_user
   get 'signup' => 'users#new', :as => :signup
   get 'login' => 'sessions#new', :as => :login

@@ -36,7 +36,7 @@
           <% for camp in @upcoming_camps_using.alphabetical %>
             <tr>
               <td class="align_center"> <%= link_to "#{camp.location.name}", location_path(camp.location) , class: "links"%></td>
-              <td class="align_center"><%= link_to "#{camp.start_date.strftime('%m/%d/%y')} - #{camp.end_date.strftime('%m/%d/%y')}" , camp_path(camp)%></td>
+              <td class="align_center"><%= link_to "#{camp.start_date.strftime('%m/%d/%y')} - #{camp.end_date.strftime('%m/%d/%y')}" , camp_path(camp), class:'links'%></td>
               <td class="align_center"><% if camp.time_slot == "am" %>
                   Morning
                 <% else %>

@@ -1,4 +1,4 @@
-<div class="container" id='student-index'>
+<div class="container" '>
       
   <div id="main">
     <div class="row">
@@ -27,7 +27,7 @@
             <% for student in @active_students %>
               <tr>
                 <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
-                <td class="align_center"><%= "#{student.date_of_birth}" %></td>
+                <td class="align_center"><%= "#{student.date_of_birth.strftime('%m/%d/%y')}" %></td>
                 <td class="align_center"><%= "#{student.rating}" %></td>
                 <td class="align_center">
                   <%= link_to edit_student_path(student) do %>
@@ -36,10 +36,10 @@
                 </td>
               </tr>
             <%end%>
-           
+           </table>
           <% end -%>
 
-        </table>
+        
         <br>
 
         <%= will_paginate @active_students, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
@@ -67,7 +67,7 @@
             <% for student in @inactive_students %>
               <tr>
                 <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
-                <td class="align_center"><%= "#{student.date_of_birth}" %></td>
+                <td class="align_center"><%= "#{student.date_of_birth.strftime('%m/%d/%y')}" %></td>
                 <td class="align_center"><%= "#{student.rating}" %></td>
                 <td class="align_center">
                   <%= link_to edit_student_path(student) do %>

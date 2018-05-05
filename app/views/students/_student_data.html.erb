@@ -1,0 +1,130 @@
+<div class="card">
+  <div class="card-content">
+    <h4><%= @student.proper_name %> </h4><br>
+
+    <b>Family Phone   </b>  <%= "#{@family.phone}" %><br>
+    <b>Family Email   </b>  <%= "#{@family.email}" %><br>
+    <% if @student.active %>
+      <b><%= "Active" %></b>
+    <% else %>
+      <b><%= "Inactive" %></b>
+    <% end %><br>
+
+    <b><%=link_to "Family Details", family_path(@family), class:"links"%></b>
+    <br><br>
+
+
+
+
+    <div class='row'>
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s6"><a  href="#upcoming-camps" id = 'index-tabs'>Upcoming Camps</a></li>
+          <li class="tab col s6"><a href="#past-camps" id='index-tabs'>Past Camps</a></li>
+        </ul>
+      </div>
+
+
+
+      
+        <br><br><br>
+
+        <% if @upcoming_camps_for_student.empty? and @past_camps_for_student.empty? %>
+          <%= "No camps at this time" %>
+
+
+        <% else %>
+          <div id='upcoming-camps'>
+            <b>Upcoming Camps</b><br>
+            <table class="striped highlight">
+                <% if @upcoming_camps_for_student.empty?  %>
+                  <br>
+                  There are no upcoming camps for this student 
+                <%else%>
+                  <thead>
+                    <th class="align_center">Name</th>
+                    <th class="align_center">Start</th>
+                    <th class="align_center">Time</th>
+                    <th class="align_center">Max Students</th>
+                    <% if logged_in? and current_user.role?(:admin) %>
+
+                      <th class="align_center">Options</th>
+                    <% end %>
+                  </thead>
+                  <% for camp in @upcoming_camps_for_student.chronological %>
+                    <tr>
+                      <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+                      <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+                      <% if (camp.time_slot == "am") %>
+                        <td class="align_center">Morning</td>
+                      <% else %>
+                        <td class="align_center">Afternoon</td>
+                      <% end -%>
+                      
+                      <td class="align_center"><%= "#{camp.max_students}" %></td>
+                      <% if logged_in? and current_user.role?(:admin) %>
+                        <td class="align_center">
+                          <%= link_to edit_camp_path(camp) do %>
+                              <i class="material-icons color-icons">edit</i>
+                          <% end %>
+                        </td>
+                      <% end %>
+                    </tr>
+                  <% end %>
+                <% end -%>
+            </table>
+          
+            <br />
+            <%= will_paginate @upcoming_camps_for_student, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+        </div>
+
+        <div id='past-camps'>
+          <b>Past Camps</b><br>
+          <table class="striped highlight">
+            <% if @past_camps_for_student.empty?  %>
+              <br>
+              There are no past camps for this student 
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Start</th>
+                <th class="align_center">Time</th>
+                <th class="align_center">Max Students</th>
+                <% if logged_in? and current_user.role?(:admin) %>
+
+                  <th class="align_center">Options</th>
+                <% end %>
+              </thead>
+              <% for camp in @past_camps_for_student.chronological %>
+                <tr>
+                  <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+                  <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+                  <% if (camp.time_slot == "am") %>
+                    <td class="align_center">Morning</td>
+                  <% else %>
+                    <td class="align_center">Afternoon</td>
+                  <% end -%>
+                  
+                  <td class="align_center"><%= "#{camp.max_students}" %></td>
+
+                  <% if logged_in? and current_user.role?(:admin) %>
+                    <td class="align_center">
+                      <%= link_to edit_camp_path(camp) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                    </td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @upcoming_camps_for_student, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+
+          </div>
+
+        <% end %>
+    </div>
+
+  </div>
+</div>

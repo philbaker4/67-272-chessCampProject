@@ -9,7 +9,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @student_student = @student.student
+    @family = @student.family
     @past_camps_for_student = @student.camps.past.chronological.paginate(page: params[:page]).per_page(5)
     @upcoming_camps_for_student = @student.camps.upcoming.chronological.paginate(page: params[:page]).per_page(5)
 

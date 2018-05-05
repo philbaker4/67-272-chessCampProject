@@ -2,30 +2,44 @@
 <div class = 'col s8 offset-m2'>
 
   <%= simple_form_for(@family) do |f| %>
-    <%= f.error_notification %>
+  <%= f.error_notification %>
 
     <div class="row">
-      <%= f.input :parent_first_name, wrapper_html: {class: 'col s6'}%>
-      <%= f.input :family_name, wrapper_html: {class: 'col s6'}%>
-
+      <%= f.input :parent_first_name, label_html: { class: 'active' },wrapper_html: {class: 'col s6'}%>
+      <%= f.input :family_name, label_html: { class: 'active' },wrapper_html: {class: 'col s6'}%>
 
     </div>
 
     
-    <div class="row">
-      <%= f.input :active %>
 
+    <div class="row">
+      <%= f.input :username, label_html: { class: 'active' }, wrapper_html: {class: 'col s4'} %>
+
+      <%= f.input :email, label_html: { class: 'active' }, wrapper_html: {class: 'col s5'} %>
+
+      <%= f.input :phone, label_html: { class: 'active' }, wrapper_html: {class: 'col s3'} %>
+    </div>
+    <div class="row">
+      <%= f.input :password, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
+      <%= f.input :password_confirmation, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
+
+      
     </div>
 
-
+    <div class="row">
+      <%= f.input :active, label_html: { class: 'active' } %>
+    </div>
+    
     <br>
     <div class="row">
-      <div class="form-actions col s8">
+      <div class="form-actions col s8 ">
         <%= f.button :submit %>
       </div>
     </div>
   <% end %>
+</div>
 
+          
 
 
 <!--          handle user edits with ajax  ?????

@@ -2,12 +2,13 @@ class CampsController < ApplicationController
   before_action :set_camp, only: [:show, :edit, :update, :destroy, :instructors]
 
   def index
-    @active_camps = Camp.all.active.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @inactive_camps = Camp.all.inactive.alphabetical.paginate(:page => params[:page]).per_page(1)
+    @upcoming_camps = Camp.all.upcoming.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @past_camps = Camp.all.past.alphabetical.paginate(:page => params[:page]).per_page(1)
   end
 
   def show
     @instructors = @camp.instructors.alphabetical
+    @students = @camp.students.alphabetical.paginate(:page => params[:page]).per_page(10)
   end
 
   def edit
