@@ -1,7 +1,8 @@
 <div class = 'col s8 offset-m2'>
 
-  <%= simple_form_for(@instructor) do |f| %>
+  <%= simple_form_for(@instructor, multipart: true) do |f| %>
     <%= f.error_notification %>
+
 
 
       <div class="row">
@@ -24,6 +25,12 @@
       <div class="row">
         <%= f.input :active %>
       </div>
+        <div class="field">
+          <%= f.label :photo %><br />
+          <%= f.file_field :photo %>
+        </div>
+
+
       
       <br>
       <div class="row">

@@ -12,6 +12,14 @@
       <li ><%= link_to 'Camps', camps_path , class: 'nav-links'%></li>
       <li ><%= link_to 'Curriculums', curriculums_path , class: 'nav-links'%></li>
       
+      <li class='right'><%= session[:cart].length %></li>
+
+      <li class='right'>
+        <%= link_to view_cart_path do %>
+          <i class="material-icons align-right">shopping_cart</i> 
+        <% end %>
+      </li>
+      
       
         
       </ul>

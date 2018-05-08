@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col s8 offset-m2">
+    <h4>Admin Details</h4>
+    <%= render partial: "user_data" %>
+  </div>
+
+</div>
+<div class="col s12 offset-m4">
+  <%= link_to(user_path, class: 'waves-effect waves-light btn') do %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">navigate_before</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <% end %>
+  &nbsp;&nbsp;
+  
+  <%= link_to(edit_user_path(@user), class: 'waves-effect waves-light btn') do %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <% end %>
+  &nbsp;&nbsp;
+</div>

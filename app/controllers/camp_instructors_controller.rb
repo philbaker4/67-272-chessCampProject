@@ -3,7 +3,6 @@ class CampInstructorsController < ApplicationController
   def new
     @camp_instructor   = CampInstructor.new
     @camp              = Camp.find(params[:camp_id])
-    @other_instructors = @camp.instructors # where we handle what instructors are int he list
   end
   
   def create
@@ -13,8 +12,8 @@ class CampInstructorsController < ApplicationController
       redirect_to camp_path(@camp_instructor.camp)
     else
       @camp = Camp.find(params[:camp_instructor][:camp_id])
-      @other_instructors = @camp.instructors
-      render action: 'new', locals: { camp: @camp, other_instructors: @other_instructors }
+      @instructors = Instructor.active.alphabetical.to_a - @camp.instructors.to_a
+      render action: 'new', locals: { camp: @camp }
     end
   end
  
@@ -37,4 +36,4 @@ class CampInstructorsController < ApplicationController
       params.require(:camp_instructor).permit(:camp_id, :instructor_id)
     end
 
-end
+end 

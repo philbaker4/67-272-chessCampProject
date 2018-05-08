@@ -1,20 +1,40 @@
 <div class="card">
   <div class="card-content">
-    <h4><%= "#{@instructor.proper_name}" %> </h4>
-
-    <b>Email</b>&nbsp;&nbsp; <%= "#{@instructor.email}" %><br>
+    <div class = 'row'>
+      <div class = 'col s6'>
+        <h4><%= "#{@instructor.proper_name}" %> </h4>
+  
+        <div class = 'row'>
+          <b class='col s1'>Email</b>
+          <div class = 'col s5 offset-m1'> <%= "#{@instructor.email}"%> </div>
+        </div>
+        <div class = 'row'>
+   
+          <b class='col s1'>Phone</b>
+          <div class = 'col s5 offset-m1'> <%= "#{@instructor.phone.insert(3,'-').insert(7,'-')}" %> </div>
+        </div>
+        <div class = 'row'>
     
-    <b>Phone</b>&nbsp;&nbsp; <%= "#{@instructor.phone.insert(3,'-').insert(7,'-')}" %><br>
+          <b class='col s1'>Bio</b>
+          <div class = 'col s12 offset-m1'> <%= "#{@instructor.bio}" %>. </div>
+        </div>
 
-    <b>Bio</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= "#{@instructor.bio}" %><br>
 
+        <%if @instructor.active %>
+          <b>Active</b>
+        <% else %>
+          <b>Inactive</b>
+        <% end -%><br><br>
 
-    <%if @instructor.active %>
-      <b>Active</b>
-    <% else %>
-      <b>Inactive</b>
-    <% end -%><br><br>
+      </div>
 
+      <div class='col s6'>
+        <% if !@instructor.photo.nil? %>
+          <%= image_tag("#{@instructor.photo}", class: "responsive-img")  %>
+        <% end %> 
+      </div>
+
+    </div>
     <h5>Upcoming Camps</h5>&nbsp;
     
 

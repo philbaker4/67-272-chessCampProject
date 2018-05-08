@@ -1,0 +1,62 @@
+
+
+<div class = 'card col s8'>
+  <div class = 'card-content'>
+    <h5>Registrations</h5>
+      <table class="striped highlight">
+        <% if @cart_reg.empty?  %>
+          <br>
+          <b>There are no registrations in your cart</b>
+        <%else%>
+          <thead>
+            <th class="align_center">Student Name</th>
+            <th class="align_center">Camp Name</th>
+            <th class="align_center">Start Date</th> 
+            <th class="align_center">Cost</th>
+            <th class="align_center">Options</th>
+          </thead>
+          <% for registration in @cart_reg %>
+
+            <% camp = registration[:camp] %>
+            <% student = registration[:student] %>
+            <tr>
+              <td class="align_center "><%= link_to "#{student.proper_name}", student_path(student), class: "links"%></td>
+              <td class="align_center "><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+              <td class="align_center "><%= camp.start_date.strftime("%m/%d/%y")%></td>
+              <td class="align_center "><%= number_to_currency(camp.cost)%></td>
+              <td class="align_center">
+                <%# link_to remove_one_from_cart_path(registration), html_options = {method: :post} do %>
+                    <i class="material-icons color-icons">edit</i>
+                <%# end %>
+                
+              </td>
+            </tr>
+          <% end %>
+        <% end -%>
+      </table> 
+
+            <%= @price %>
+
+
+  </div>
+</div> 
+
+
+
+<div class = 'card col s4'>
+  <div  class=' card-content col s12 '>
+    <h5>Payment</h5>
+    <% if @cart_reg.empty?  %>
+      
+      <b>No camps to register</b>
+
+    <% else %>
+
+
+      <%= button_to "checkout", new_registration_path, method: :get %>
+      
+
+
+    <% end %>
+  </div>
+</div>

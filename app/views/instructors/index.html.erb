@@ -1,89 +1,97 @@
 <div class="container" id='index'>
       
   <div id="main">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a  href="#active-instructors" id = 'index-tabs'>Active Instructors</a></li>
-          <li class="tab col s6"><a href="#inactive-instructors" id='index-tabs'>Inactive Instructors</a></li>
-        </ul>
-      </div>
-
-      <div id="active-instructors" class="col s12">
-        <table class="striped highlight">
-          <% if @active_instructors.empty?  %>
-            <br>
-            There are no active instructors in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th> 
-              <th class="align_center">Phone</th>
-              <th class="align_center">Camps</th>
-              <th class="align_center">Options</th>
-            </thead>
-            <% for instructor in @active_instructors %>
-                <tr>
-                  <td class="align_center"><%= link_to "#{instructor.name}", instructor_path(instructor), class: 'links' %></td>
-                  <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
-                  <td class="align_center"><%= "#{instructor.camps.count}" %></td>
-                  
-
-                  <td class="align_center">
-                    <%= link_to edit_instructor_path(instructor) do %>
-                        <i class="material-icons color-icons">edit</i>
-                    <% end %>
-                    
-                  </td>
-                </tr>
+    <div class="row card ">
+      <div class = 'card-content'>
+          <div class='row'>
+            <%= link_to(new_instructor_path, class: 'waves-effect waves-light btn col s12') do %>
+              New Instructor
             <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @active_instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+          </div>
+          <div class="divider"></div>
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s6"><a  href="#active-instructors" id = 'index-tabs'>Active Instructors</a></li>
+            <li class="tab col s6"><a href="#inactive-instructors" id='index-tabs'>Inactive Instructors</a></li>
+          </ul>
+        </div>
 
-        <p>&nbsp;</p>
-
-
-
-      </div>
-
-
-      <div id="inactive-instructors" class="col s12">
-        <table class="striped highlight">
-          <% if @inactive_instructors.empty?  %>
-            <br>
-            There are no inactive instructors in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th> 
-              <th class="align_center">Phone</th>
-              <th class="align_center">Camps</th>
-              <th class="align_center">Options</th>
-            </thead>
-            <% for instructor in @inactive_instructors %>
-                <tr>
-                  <td class="align_center"><%= link_to "#{instructor.name}", instructor_path(instructor), class: 'links' %></td>
-                  <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
-                  <td class="align_center"><%= "#{instructor.camps.count}" %></td>
-                  
-
-                  <td class="align_center">
-                    <%= link_to edit_instructor_path(instructor) do %>
-                        <i class="material-icons color-icons">edit</i>
-                    <% end %>
+        <div id="active-instructors" class="col s12">
+          <table class="striped highlight">
+            <% if @active_instructors.empty?  %>
+              <br>
+              There are no active instructors in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th> 
+                <th class="align_center">Phone</th>
+                <th class="align_center">Camps</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for instructor in @active_instructors %>
+                  <tr>
+                    <td class="align_center"><%= link_to "#{instructor.name}", instructor_path(instructor), class: 'links' %></td>
+                    <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
+                    <td class="align_center"><%= "#{instructor.camps.count}" %></td>
                     
-                  </td>
-                </tr>
-            <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @inactive_instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 
-        <p>&nbsp;</p>
+                    <td class="align_center">
+                      <%= link_to edit_instructor_path(instructor) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                      
+                    </td>
+                  </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @active_instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+          <p>&nbsp;</p>
 
 
 
+        </div>
+
+
+        <div id="inactive-instructors" class="col s12">
+          <table class="striped highlight">
+            <% if @inactive_instructors.empty?  %>
+              <br>
+              There are no inactive instructors in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th> 
+                <th class="align_center">Phone</th>
+                <th class="align_center">Camps</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for instructor in @inactive_instructors %>
+                  <tr>
+                    <td class="align_center"><%= link_to "#{instructor.name}", instructor_path(instructor), class: 'links' %></td>
+                    <td class="align_center"><%= "#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td>
+                    <td class="align_center"><%= "#{instructor.camps.count}" %></td>
+                    
+
+                    <td class="align_center">
+                      <%= link_to edit_instructor_path(instructor) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                      
+                    </td>
+                  </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @inactive_instructors, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+          <p>&nbsp;</p>
+
+
+
+        </div>
       </div>
 
     </div>

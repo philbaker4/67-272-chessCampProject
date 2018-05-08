@@ -1,101 +1,108 @@
 <div class="container" >
   
   <div id="main">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a href="#active-locations">Active Locations</a></li>
-          <li class="tab col s6"><a href="#inactive-locations">Inactive Locations</a></li>
-        </ul>
-      </div>
-
-      <div id="active-locations" class="col s12">
-        <table class="striped highlight">
-          <% if @active_locations.empty?  %>
-            <br>
-            There are no active locations in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Address</th>
-              <th class="align_center">Capacity</th>
-
-              <th class="align_center">Options</th>
-            </thead>
-            <% for location in @active_locations.alphabetical %>
-                <tr>
-                  <td class="align_center"><%= link_to "#{location.name}", location_path(location), class: 'links' %></td>
-                  <td class="align_center"><%= "#{location.street_1}" %>
-                  <% if !location.street_2.nil? %>
-                    <%= "#{location.street_2}" %>
-                  <% end %>
-                    <%= "#{location.city}, #{location.state} #{location.zip}" %>
-                  </td>
-                  <td class="align_center"><%= "#{location.max_capacity}"%></td>
-
-
-                  <td class="align_center">
-                    <%= link_to edit_location_path(location) do %>
-                        <i class="material-icons color-icons">edit</i>
-                    <% end %>
-                    
-                  </td>
-                </tr>
+    <div class="row card">
+      <div class='card-content'>
+          <div class='row'>
+            <%= link_to(new_location_path, class: 'waves-effect waves-light btn col s12') do %>
+              New Location
             <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @active_locations, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+          </div>
+          <div class="divider"></div>
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s6"><a href="#active-locations">Active Locations</a></li>
+            <li class="tab col s6"><a href="#inactive-locations">Inactive Locations</a></li>
+          </ul>
+        </div>
 
-        <p>&nbsp;</p>
+        <div id="active-locations" class="col s12">
+          <table class="striped highlight">
+            <% if @active_locations.empty?  %>
+              <br>
+              There are no active locations in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Address</th>
+                <th class="align_center">Capacity</th>
 
-
-      </div>
-
-
-      <div id="inactive-locations" class="col s12">
-        <table class="striped highlight">
-          <% if @inactive_locations.empty?  %>
-            <br>
-            There are no inactive locations in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Address</th>
-              <th class="align_center">Capacity</th>
-
-              <th class="align_center">Options</th>
-            </thead>
-            <% for location in @inactive_locations.alphabetical %>
-                <tr>
-                  <td class="align_center"><%= link_to "#{location.name}", location_path(location), class: 'links' %></td>
-                  <td class="align_center"><%= "#{location.street_1}" %>
-                  <% if !location.street_2.nil? %>
-                    <%= "#{location.street_2}" %>
-                  <% end %>
-                    <%= "#{location.city}, #{location.state} #{location.zip}" %>
-                  </td>
-                  <td class="align_center"><%= "#{location.max_capacity}"%></td>
-
-
-                  <td class="align_center">
-                    <%= link_to edit_location_path(location) do %>
-                        <i class="material-icons color-icons">edit</i>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for location in @active_locations.alphabetical %>
+                  <tr>
+                    <td class="align_center"><%= link_to "#{location.name}", location_path(location), class: 'links' %></td>
+                    <td class="align_center"><%= "#{location.street_1}" %>
+                    <% if !location.street_2.nil? %>
+                      <%= "#{location.street_2}" %>
                     <% end %>
-                    
-                  </td>
-                </tr>
-            <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @inactive_locations, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+                      <%= "#{location.city}, #{location.state} #{location.zip}" %>
+                    </td>
+                    <td class="align_center"><%= "#{location.max_capacity}"%></td>
 
 
-        <p>&nbsp;</p>
+                    <td class="align_center">
+                      <%= link_to edit_location_path(location) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                      
+                    </td>
+                  </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @active_locations, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 
+          <p>&nbsp;</p>
+
+
+        </div>
+
+
+        <div id="inactive-locations" class="col s12">
+          <table class="striped highlight">
+            <% if @inactive_locations.empty?  %>
+              <br>
+              There are no inactive locations in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Address</th>
+                <th class="align_center">Capacity</th>
+
+                <th class="align_center">Options</th>
+              </thead>
+              <% for location in @inactive_locations.alphabetical %>
+                  <tr>
+                    <td class="align_center"><%= link_to "#{location.name}", location_path(location), class: 'links' %></td>
+                    <td class="align_center"><%= "#{location.street_1}" %>
+                    <% if !location.street_2.nil? %>
+                      <%= "#{location.street_2}" %>
+                    <% end %>
+                      <%= "#{location.city}, #{location.state} #{location.zip}" %>
+                    </td>
+                    <td class="align_center"><%= "#{location.max_capacity}"%></td>
+
+
+                    <td class="align_center">
+                      <%= link_to edit_location_path(location) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                      
+                    </td>
+                  </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @inactive_locations, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+
+          <p>&nbsp;</p>
+
+        </div>
       </div>
-
     </div>
 
     <!-- TABS WILL GO HERE -->

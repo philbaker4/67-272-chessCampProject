@@ -3,8 +3,8 @@ class InstructorsController < ApplicationController
   authorize_resource
 
   def index
-    @active_instructors = Instructor.all.active.alphabetical.paginate(:page => params[:page]).per_page(7)
-    @inactive_instructors = Instructor.all.inactive.alphabetical.paginate(:page => params[:page]).per_page(7)
+    @active_instructors = Instructor.all.active.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @inactive_instructors = Instructor.all.inactive.alphabetical.paginate(:page => params[:page]).per_page(10)
 
   end
 
@@ -48,6 +48,6 @@ class InstructorsController < ApplicationController
     end
 
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :bio, :user_id, :email, :phone, :active)
+      params.require(:instructor).permit(:first_name, :last_name, :bio, :user_id,  :active, :photo)
     end
 end

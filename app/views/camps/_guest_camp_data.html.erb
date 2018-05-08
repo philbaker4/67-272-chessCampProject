@@ -1,0 +1,99 @@
+ 
+<h4 class = 'col s8 offset-m2'>Camp Details</h4>
+<div class="card col s8 offset-m2">
+  
+  <div class="card-content">
+    <%= hidden_field_tag "camp_id", @camp.id %>
+    <div class = 'row'>
+      <h4><%= @camp.name %> </h4>  
+      
+      <%= "#{@camp.curriculum.description}" %><br><br>
+    </div>
+    <div class = 'col s6'>
+
+      <b>Location:&nbsp;&nbsp;</b>
+      <%= "#{@camp.location.name}" %><br>
+
+      <b>Cost:&nbsp;&nbsp;</b>
+        <%= "$#{'%.2f' % @camp.cost}" %><br>
+
+      <b>Date:&nbsp;&nbsp;</b>
+        <%= "#{@camp.start_date.strftime('%m/%d/%y')} - #{@camp.end_date.strftime('%m/%d/%y')}" %><br>
+      <b>Time Slot:</b>
+        <% if @camp.time_slot == "am" %>
+          Morning
+        <% else %>
+          Afternoon 
+        <% end %><br>
+      <b>Openings:</b>
+      <%= "#{@camp.max_students - @camp.enrollment}"  %><br>
+
+    <b><%= @camp.active ? "Active" : "Inactive" %></b><br><br>
+  </div>
+
+    <div id='instructors_list' class='col s6'>
+        <h5 >Instructors</h5>
+        <div v-show="instructors.length > 0"  class='col s12'> 
+          <ul is='instructor-row' 
+            v-for="instructor in instructors" 
+            v-bind:instructor="instructor">  
+          </ul>
+
+          <br>
+        </div>
+
+        <div v-show="instructors.length == 0" class='col s12'>
+          No instructors at this time
+        </div>
+
+      </div>   
+    </div>
+
+  </div>
+</div>
+
+<div class="col s12 offset-m2">
+  <div class="form-actions ">
+    <%= link_to(camps_path, class: 'waves-effect waves-light btn') do %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">navigate_before</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <% end %>
+    &nbsp;&nbsp;
+
+    <% if logged_in? and current_user.role? :admin %> 
+      
+      <%= link_to(edit_camp_path(@camp), class: 'waves-effect waves-light btn') do %>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <% end %>
+      &nbsp;&nbsp;
+      <%= link_to(camp_path(@camp), method: 'delete', data: {confirm: "Are you sure you want to permanently delete @camp.name"}, class: 'waves-effect waves-light btn btn-alert') do %>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">delete</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+<script type="text/x-template" id='instructor-row'>
+
+    <li>
+      <% if logged_in? and current_user.role?(:admin) %> 
+        <a v-on:click="remove_record(instructor)" class="remove links">x&nbsp;&nbsp;</a>
+      <%end%>
+      {{ instructor.first_name }} {{ instructor.last_name }}
+    </li>
+</script>
+
+
+
+
+
+
+
+
+
+

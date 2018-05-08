@@ -6,7 +6,7 @@
       <%= f.error_notification %>
       <div class="row">
         <div class="form-inputs col s8">
-          <%= f.input :instructor_id, collection: Instructor.active.alphabetical, include_blank: true, wrapper_html: { class: "col s12" }%>
+          <%= f.input :instructor_id, collection: @instructors, include_blank: true, wrapper_html: { class: "col s12" }%>
           <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
 
           

@@ -1,9 +1,12 @@
-<div class="card">
+ 
+<h4 class = 'col s6 offset-m1'>Camp Details</h4>
+<div class="card col s6 offset-m1">
+  
   <div class="card-content">
     <%= hidden_field_tag "camp_id", @camp.id %>
 
-    <h4><%= @camp.name %> </h4><br />
-
+    <h4><%= @camp.name %> </h4>  
+    
     <%= "#{@camp.curriculum.description}" %><br><br>
 
     <b>Location:&nbsp;&nbsp;</b>
@@ -28,97 +31,150 @@
     <div id='instructors_list'>
       <div class='row'>
         <div class='col s6'>
-          <h5>Camp Instructors:
+          <h5 >Instructors</h5>
             <% if logged_in? and current_user.role?(:admin)%>
-              <a href="#" v-on:click="switch_modal"> <i class="material-icons color-icons small">add</i></a>
+              <a href="#" v-on:click="switch_modal" class = 'col s1'> <i class="material-icons color-icons small">add</i></a>
             <% end -%>
-          </h5>
-
-          <div v-show="instructors.length > 0" > 
-            
+        <div class='row'>
+          <div v-show="instructors.length > 0"  class='col s12'> 
             <ul is='instructor-row' 
               v-for="instructor in instructors" 
-              v-bind:instructor="instructor"
-              class="no_bullet">  
+              v-bind:instructor="instructor">  
             </ul>
 
             <br>
           </div>
 
-          <div v-show="instructors.length == 0">
+          <div v-show="instructors.length == 0" class='col s12'>
             No instructors at this time
           </div>
         </div>
 
-    
-        <div v-if="modal_open" class='col s6' >
+          
+        </div>
+
+        <div class = 'col s6'>
+                  <div v-if="modal_open"  >
 
           <new-instructor-form></new-instructor-form>
         </div>
 
+        </div>
       </div>
-    </div>
-
-
-
-    <div id ='students-table'>
-
-      <% if logged_in? and (current_user.role?(:admin)  or (current_user.role?(:instructor) and Instructor.find_by_user_id(current_user).camps.include?(@camp)) or (current_user.role?(:parent)))%>
-        <h5>Students</h5>
-        <% if @students.empty?  %>
-              <br>
-              There are no active students in the system at this time
-            <%else%>
-            <table class="striped highlight">
-              <thead>
-                <th class="align_center">Name</th>
-                <th class="align_center">Date of Birth</th>
-                <th class="align_center">Rating</th>
-                <% if logged_in? and current_user.role?(:admin) %>
-                  <th class="align_center">Options</th>
-                <% end %>
-
-              </thead>
-
-              <% for student in @students %>
-                <tr>
-                  <% if logged_in? and (current_user.role?(:admin)  or  student.family.user == current_user)%>
-                    <td class="align_center"> 
-                        <%= link_to "#{student.proper_name}", student_path(student) , class: "links"%>
-                    </td>
-                  <% else %> 
-                    <td class="align_center"> 
-                        <%= "#{student.proper_name}" %>
-                    </td>
-                  <% end %>
-
-                  <td class="align_center"><%= student.date_of_birth.strftime("%m/%d/%y") %></td>
-                  <td class="align_center"><%= student.rating %></td>
-                  <% if logged_in? and current_user.role?(:admin) %>
-                      <td class="align_center">
-                        <%= link_to edit_camp_path(@camp) do %>
-                            <i class="material-icons color-icons">edit</i>
-                        <% end %>
-                      </td>
-                    <% end %>
-                </tr>
-              <%end%>
-             </table>
-            <% end -%>
-           <% end -%>
-
-        
-
-
+          
       
 
 
+
+
+      </div>
+    
+      <div id ='students-table'>
+
+        <% if logged_in? and (current_user.role?(:admin)  or (current_user.role?(:instructor) and Instructor.find_by_user_id(current_user).camps.include?(@camp)) )%>
+          <h5>Students</h5>
+          <% if @students.empty?  %>
+                <br>
+                There are no active students in the system at this time
+          <%else%>
+          <table class="striped highlight">
+            <thead>
+              <th class="align_center">Name</th>
+              <th class="align_center">Date of Birth</th>
+              <th class="align_center">Rating</th>
+              <% if logged_in? and current_user.role?(:admin) %>
+                <th class="align_center">Options</th>
+              <% end %>
+
+            </thead>
+
+            <% for student in @students %>
+              <tr>
+                <% if logged_in? and (current_user.role?(:admin)  or  student.family.user == current_user)%>
+                  <td class="align_center"> 
+                      <%= link_to "#{student.proper_name}", student_path(student) , class: "links"%>
+                  </td>
+                <% else %> 
+                  <td class="align_center"> 
+                      <%= "#{student.proper_name}" %>
+                  </td>
+                <% end %>
+
+                <td class="align_center"><%= student.date_of_birth.strftime("%m/%d/%y") %></td>
+                <td class="align_center"><%= student.rating %></td>
+                <% if logged_in? and current_user.role?(:admin) %>
+                    <td class="align_center">
+                      <%= link_to edit_camp_path(@camp) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                    </td>
+                  <% end %>
+              </tr>
+            <%end%>
+           </table>
+          <% end -%>
+        <% elsif logged_in? and current_user.role? :parent %>
+                  <h5>Students</h5>
+
+          <ul >
+            <% for student in @students %>
+              <li><%= student.proper_name %></li>
+            <% end %>
+          </ul>
+        <% end -%>
+
+
+      </div>
     </div>
 
 
       
   </div>
 </div>
+
+<div class = 'card col s4 offset-m1' id ='registrations'>
+    <div  class=' card-content '>
+      <h5 class='col s10'>New Registration:</h5>
+      <% if logged_in? and ((current_user.role?(:admin) or current_user.role? :parent))%>
+        <a href="#" v-on:click="switch_modal"> <i class="material-icons color-icons small">add</i></a>
+        <div v-if="modal_open" class='col s12' >
+
+          <new-registration-form></new-registration-form>
+        </div>
+
+      <% end -%>
+    </div>
+  
+
+</div>
+
+
+
+
+
+<div class="col s12 offset-m1">
+  <div class="form-actions ">
+    <%= link_to(camps_path, class: 'waves-effect waves-light btn') do %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">navigate_before</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <% end %>
+    &nbsp;&nbsp;
+
+    <% if logged_in? and current_user.role? :admin %> 
+      
+      <%= link_to(edit_camp_path(@camp), class: 'waves-effect waves-light btn') do %>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+      <% end %>
+      &nbsp;&nbsp;
+      <%= link_to(camp_path(@camp), method: 'delete', data: {confirm: "Are you sure you want to permanently delete @camp.name"}, class: 'waves-effect waves-light btn btn-alert') do %>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">delete</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
 
 
 
@@ -134,10 +190,7 @@
         <%= f.error_notification %>
         <div class="row">
           <div class="form-inputs">
-            <%= f.input :instructor_id, collection: Instructor.active.alphabetical.to_a, include_blank: true %>
-
-
-            <!--     handle only the possible isntructors   find returns nil  -->
+            <%= f.input :instructor_id, collection: @potential_instructors, include_blank: true , wrapper_html: {class: 'col s12'}%>
             <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
           </div>
         </div>
@@ -148,8 +201,6 @@
         </div>
       <% end %>
     </div>
-  
-
 </script>
 
 <script type="text/x-template" id='instructor-row'>
@@ -162,9 +213,41 @@
     </li>
 </script>
 
-  
 
 
 
 
-<!--"#{instructor.phone.insert(6,'-').insert(3,'-')}" %></td> -->
+<script type="text/x-template" id="registration-form-template">
+
+  <% @registration = Registration.new %>
+    <div class="col s12">
+      <%= simple_form_for(@registration, :url => add_to_cart_path, method: :post) do |f| %>
+        <%= f.error_notification %>
+        <div class="row ">
+          <div class="form-inputs">
+            <%= f.input :student_id, collection: @students_for_camp, include_blank: true, wrapper_html: {class: 'col s12'}%>
+
+            <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
+
+            
+          </div>
+        </div>
+        <div class="row ">
+          <div class="form-actions ">
+
+            <%= f.button :submit %>
+             
+          </div>
+        </div>
+
+        
+
+      <% end %>
+    </div>
+
+</script>
+
+
+
+
+

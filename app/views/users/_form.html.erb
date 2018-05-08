@@ -23,6 +23,7 @@
             </div>
 
             <div class="row">
+              <%= f.input :role, collection: User::ROLES, include_blank:true, wrapper_html: {class: 'col s3'}%>
               <%= f.input :active, label_html: { class: 'active' } %>
             </div>
             

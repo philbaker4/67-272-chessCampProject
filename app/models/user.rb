@@ -2,6 +2,9 @@ class User < ApplicationRecord
   # use has_secure_password for password hashing
   has_secure_password
 
+  include AppHelpers::Activeable::InstanceMethods
+  extend AppHelpers::Activeable::ClassMethods
+
   # validations
   validates :username, presence: true, uniqueness: { case_sensitive: false}
   validates :role, inclusion: { in: %w[admin instructor parent], message: "is not a recognized role in system" }

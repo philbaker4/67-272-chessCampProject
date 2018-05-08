@@ -1,81 +1,88 @@
-<div class="container" id='student-index'>
+<div class="container" >
       
   <div id="main">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a href="#active-families">Active Families</a></li>
-          <li class="tab col s6"><a href="#inactive-families">Inactive Families</a></li>
-        </ul>
-      </div>
+    <div class="row card">
+      <div class = 'card-content'>
+          <div class='row'>
+            <%= link_to(new_family_path, class: 'waves-effect waves-light btn col s12') do %>
+              New Family
+            <% end %>
+          </div>
+          <div class="divider"></div>
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s6"><a href="#active-families">Active Families</a></li>
+            <li class="tab col s6"><a href="#inactive-families">Inactive Families</a></li>
+          </ul>
+        </div>
 
-      <div id="active-families" class="col s12">
-        <table class="striped highlight">
-      <% if @active_families.empty?  %>
-        <br>
-        There are no active families in the system at this time
-      <%else%>
-        <thead>
-          <th class="align_center">Parent Name</th>
-          <th class="align_center">Family Name</th>
-          <th class="align_center">Options</th>
-        </thead>
-        <% for family in @active_families %>
-            <tr>
-              <td class="align_center"><%=  "#{family.parent_first_name}" %></td>
+        <div id="active-families" class="col s12">
+          <table class="striped highlight">
+          <% if @active_families.empty?  %>
+            <br>
+            There are no active families in the system at this time
+          <%else%>
+            <thead>
+              <th class="align_center">Parent Name</th>
+              <th class="align_center">Family Name</th>
+              <th class="align_center">Options</th>
+            </thead>
+            <% for family in @active_families %>
+                <tr>
+                  <td class="align_center"><%=  "#{family.parent_first_name}" %></td>
 
-              <td class="align_center"><%= link_to "#{family.family_name}", family_path(family), class: 'links' %></td>
+                  <td class="align_center"><%= link_to "#{family.family_name}", family_path(family), class: 'links' %></td>
 
-              <td class="align_center">
-                <%= link_to edit_family_path(family) do %>
-                    <i class="material-icons color-icons">edit</i>
-                <% end %>
-                
-              </td>
-            </tr>
-        <% end %>
-      <% end -%>
+                  <td class="align_center">
+                    <%= link_to edit_family_path(family) do %>
+                        <i class="material-icons color-icons">edit</i>
+                    <% end %>
+                    
+                  </td>
+                </tr>
+              <% end %>
+            <% end -%>
 
-    </table>
-    <%= will_paginate @active_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+          </table><br>
+          <%= will_paginate @active_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
 
-    <br>
+          <br>
 
-      </div>
-
-
-      <div id="inactive-families" class="col s12">
-        <table class="striped highlight">
-      <% if @inactive_families.empty?  %>
-        <br>
-        There are no inactive families in the system at this time
-      <%else%>
-        <thead>
-          <th class="align_center">Parent Name</th>
-          <th class="align_center">Family Name</th>
-          <th class="align_center">Options</th>
-        </thead>
-        <% for family in @inactive_families %>
-            <tr>
-              <td class="align_center"><%=  "#{family.parent_first_name}" %></td>
-
-              <td class="align_center"><%= link_to "#{family.family_name}", family_path(family), class: 'links' %></td>
-
-              <td class="align_center">
-                <%= link_to edit_family_path(family) do %>
-                    <i class="material-icons color-icons">edit</i>
-                <% end %>
-                
-              </td>
-            </tr>
-        <% end %>
-      <% end -%>
-    </table>
-    <br>
-    <%= will_paginate @inactive_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+        </div>
 
 
+        <div id="inactive-families" class="col s12">
+          <table class="striped highlight">
+            <% if @inactive_families.empty?  %>
+              <br>
+              There are no inactive families in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Parent Name</th>
+                <th class="align_center">Family Name</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for family in @inactive_families %>
+                <tr>
+                  <td class="align_center"><%=  "#{family.parent_first_name}" %></td>
 
+                  <td class="align_center"><%= link_to "#{family.family_name}", family_path(family), class: 'links' %></td>
+
+                  <td class="align_center">
+                    <%= link_to edit_family_path(family) do %>
+                        <i class="material-icons color-icons">edit</i>
+                    <% end %>
+                    
+                  </td>
+                </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br>
+          <%= will_paginate @inactive_families, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+
+          <br>
+        </div>
 
 
       </div>

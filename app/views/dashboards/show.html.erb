@@ -1,6 +1,6 @@
 
 <% if logged_in? and current_user.role?(:admin) %>
-  # admin stuff 
+  <%= render :partial => "admin_dashboard" %>
 <%elsif logged_in? and current_user.role?(:instructor) %>
   # instructor stuff
 <%elsif logged_in? and current_user.role?(:parent)%>

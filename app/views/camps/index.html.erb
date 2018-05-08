@@ -2,101 +2,110 @@
       
   <div id="main">
     <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a  href="#active-camps" id = 'index-tabs'>Upcoming Camps</a></li>
-          <li class="tab col s6"><a href="#inactive-camps" id='index-tabs'>Past Camps</a></li>
-        </ul>
-      </div>
-
-      <div id="active-camps" class="col s12">
-        <table class="striped highlight">
-          <% if @upcoming_camps.empty?  %>
-            <br>
-            There are no upcoming camps in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Start</th>
-              <th class="align_center">Time</th>
-              <th class="align_center">Max Students</th>
-              <th class="align_center">Options</th>
-            </thead>
-            <% for camp in @upcoming_camps.chronological %>
-              <tr>
-                <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
-                <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
-                <% if (camp.time_slot == "am") %>
-                  <td class="align_center">Morning</td>
-                <% else %>
-                  <td class="align_center">Afternoon</td>
-                <% end -%>
-                
-                <td class="align_center"><%= "#{camp.max_students}" %></td>
-                <td class="align_center">
-                  <%= link_to edit_camp_path(camp) do %>
-                      <i class="material-icons color-icons">edit</i>
-                  <% end %>
-                  
-                </td>
-              </tr>
+      <div class=" card col s12">
+        <div class='card-content'>
+          <div class='row'>
+            <%= link_to(new_camp_path, class: 'waves-effect waves-light btn col s12') do %>
+              New Camp
             <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @upcoming_camps, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
-
-        <p>&nbsp;</p>
+          </div>
+          <div class="divider"></div>
 
 
+          <ul class="tabs">
+            <li class="tab col s6"><a  href="#active-camps" id = 'index-tabs'>Upcoming Camps</a></li>
+            <li class="tab col s6"><a href="#inactive-camps" id='index-tabs'>Past Camps</a></li>
+          </ul>
 
-      </div>
+
+        </div>
 
 
-      <div id="inactive-camps" class="col s12">
-        <table class="striped highlight">
-          <% if @past_camps.empty?  %>
-            <br>
-            There are no past camps in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Start</th>
-              <th class="align_center">Time</th>
-              <th class="align_center">Max Students</th>
-              <th class="align_center">Options</th>
-            </thead>
-            <% for camp in @past_camps.chronological %>
-              <tr>
-                <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
-                <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
-                <% if (camp.time_slot == "am") %>
-                  <td class="align_center">Morning</td>
-                <% else %>
-                  <td class="align_center">Afternoon</td>
-                <% end -%>
-                
-                <td class="align_center"><%= "#{camp.max_students}" %></td>
-                <td class="align_center">
-                  <%= link_to edit_camp_path(camp) do %>
-                      <i class="material-icons color-icons">edit</i>
-                  <% end %>
+        <div id="active-camps" class="col s12">
+          <table class="striped highlight">
+            <% if @upcoming_camps.empty?  %>
+              <br>
+              There are no upcoming camps in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Start</th>
+                <th class="align_center">Time</th>
+                <th class="align_center">Max Students</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for camp in @upcoming_camps.chronological %>
+                <tr>
+                  <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+                  <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+                  <% if (camp.time_slot == "am") %>
+                    <td class="align_center">Morning</td>
+                  <% else %>
+                    <td class="align_center">Afternoon</td>
+                  <% end -%>
                   
-                </td>
-              </tr>
-            <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @past_camps, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+                  <td class="align_center"><%= "#{camp.max_students}" %></td>
+                  <td class="align_center">
+                    <%= link_to edit_camp_path(camp) do %>
+                        <i class="material-icons color-icons">edit</i>
+                    <% end %>
+                    
+                  </td>
+                </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @upcoming_camps, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
 
-        <p>&nbsp;</p>
+          <p>&nbsp;</p>
 
 
 
+        </div>
 
+
+        <div id="inactive-camps" class="col s12">
+          <table class="striped highlight">
+            <% if @past_camps.empty?  %>
+              <br>
+              There are no past camps in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Start</th>
+                <th class="align_center">Time</th>
+                <th class="align_center">Max Students</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for camp in @past_camps.chronological %>
+                <tr>
+                  <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+                  <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+                  <% if (camp.time_slot == "am") %>
+                    <td class="align_center">Morning</td>
+                  <% else %>
+                    <td class="align_center">Afternoon</td>
+                  <% end -%>
+                  
+                  <td class="align_center"><%= "#{camp.max_students}" %></td>
+                  <td class="align_center">
+                    <%= link_to edit_camp_path(camp) do %>
+                        <i class="material-icons color-icons">edit</i>
+                    <% end %>
+                    
+                  </td>
+                </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @past_camps, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+
+          <p>&nbsp;</p>
+
+        </div>
       </div>
-
     </div>
   </div>
 </div>

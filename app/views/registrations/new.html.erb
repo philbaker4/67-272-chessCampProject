@@ -1,0 +1,35 @@
+
+<div class="row">
+  <div class="col s8 offset-m2">
+    <h4>Checkout</h4>
+    <%= simple_form_for(@registration) do |f| %>
+      <%= f.error_notification %>
+      <div class="row">
+        <div class="form-inputs col s8">
+          <%= f.input :student_id, as: :hidden, input_html: { value: @student.id }%>
+          <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
+          <%= f.input :credit_card_number %>
+          <%= f.input :expiration_month %>
+          <%= f.input :expiration_year %>
+
+          
+        </div>
+      </div>
+
+
+
+
+
+      <div class="row col s3">
+        <div class="form-actions col s8">
+          <%= f.button :submit, "Checkout" %>
+        </div>
+      </div>
+
+      <br><br><br>
+      
+
+    <% end %>
+  </div>
+  
+</div>

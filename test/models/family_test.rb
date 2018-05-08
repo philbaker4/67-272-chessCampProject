@@ -16,7 +16,7 @@ class FamilyTest < ActiveSupport::TestCase
       create_family_users
       create_families
       create_inactive_families
-    end
+    end 
     
     teardown do
       delete_families

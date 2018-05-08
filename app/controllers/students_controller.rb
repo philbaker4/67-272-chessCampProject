@@ -45,6 +45,7 @@ class StudentsController < ApplicationController
     redirect_to students_url, notice: "#{@student.first_name @student.last_name} was removed from the system."
   end
 
+
   private
     def set_student
       @student = Student.find(params[:id])

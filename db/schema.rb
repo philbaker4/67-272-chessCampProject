@@ -1,7 +1,7 @@
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
-# 
+#
 # Note that this schema.rb definition is the authoritative source for your
 # database schema. If you need to create the application database on another
 # system, you should be using db:schema:load, not running all the migrations
@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127020420) do
+ActiveRecord::Schema.define(version: 20180505220709) do
 
   create_table "camp_instructors", force: :cascade do |t|
     t.integer "camp_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20171127020420) do
     t.text "bio"
     t.integer "user_id"
     t.boolean "active", default: true
+    t.string "photo"
     t.index ["user_id"], name: "index_instructors_on_user_id"
   end
 

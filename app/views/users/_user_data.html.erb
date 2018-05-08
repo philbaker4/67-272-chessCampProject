@@ -1,0 +1,15 @@
+ <div class="card">
+  <div class="card-content">
+    <h4> <%= @user.username.capitalize %></h4>
+    <b>Username</b>  <%= "#{@user.username}" %><br>
+ 
+    <b>Phone   </b>  <%= "#{@user.phone[0..2]}-#{@user.phone[3..5]}-#{@user.phone[6..10]}" %><br>
+    <b>Email   </b>  <%= "#{@user.email}" %><br>
+    <b>Username</b>  <%= "#{@user.username}" %><br>
+    <% if @user.active %>
+      <b><%= "Active" %></b>
+    <% else %>
+      <b><%= "Inactive" %></b>
+    <% end %><br><br>
+  </div>
+</div>

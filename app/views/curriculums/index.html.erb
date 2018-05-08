@@ -1,103 +1,107 @@
 <div class="container" id='index'>
       
   <div id="main">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a  href="#active-curriculums" id = 'index-tabs'>Active Curriculums</a></li>
-          <li class="tab col s6"><a href="#inactive-curriculums" id='index-tabs'>Inactive Curriculums</a></li>
-        </ul>
-      </div>
-
-      <div id="active-curriculums" class="col s12">
-        <table class="striped highlight">
-          <% if @active_curriculums.empty?  %>
-            <br>
-            There are no active curriculums in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Ratings</th>
-              <th class="align_center">Times Used</th>
-              <th class="align_center">Options</th>
-            </thead>
-            <% for curriculum in @active_curriculums %>
-                <tr>
-                  <td class="align_center"><%= link_to "#{curriculum.name}", curriculum_path(curriculum), class: 'links' %></td>
-
-                  <td class="align_center">
-                    <% if curriculum.min_rating == 0 %>
-                      <%= "Unrated - #{curriculum.max_rating}" %>
-                    <% else %>
-                      <%= "#{curriculum.min_rating} - #{curriculum.max_rating}" %>
-                    <% end %>
-
-                        
-
-
-                  </td>
-                  <td class="align_center"><%= curriculum.camps.count %></td>
-                  <td class="align_center">
-                    <%= link_to edit_curriculum_path(curriculum) do %>
-                        <i class="material-icons color-icons">edit</i>
-                    <% end %>
-                    
-                  </td>
-                </tr>
+    <div class="row card">
+      <div class = 'card-content'>
+          <div class='row'>
+            <%= link_to(new_curriculum_path, class: 'waves-effect waves-light btn col s12') do %>
+              New Curriculum
             <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @active_curriculums, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+          </div>
+          <div class="divider"></div>
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s6"><a  href="#active-curriculums" id = 'index-tabs'>Active Curriculums</a></li>
+            <li class="tab col s6"><a href="#inactive-curriculums" id='index-tabs'>Inactive Curriculums</a></li>
+          </ul>
+        </div>
 
-        <p>&nbsp;</p>
+        <div id="active-curriculums" class="col s12">
+          <table class="striped highlight">
+            <% if @active_curriculums.empty?  %>
+              <br>
+              There are no active curriculums in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Ratings</th>
+                <th class="align_center">Times Used</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for curriculum in @active_curriculums %>
+                  <tr>
+                    <td class="align_center"><%= link_to "#{curriculum.name}", curriculum_path(curriculum), class: 'links' %></td>
 
+                    <td class="align_center">
+                      <% if curriculum.min_rating == 0 %>
+                        <%= "Unrated - #{curriculum.max_rating}" %>
+                      <% else %>
+                        <%= "#{curriculum.min_rating} - #{curriculum.max_rating}" %>
+                      <% end %>
 
-      </div>
-
-
-      <div id="inactive-curriculums" class="col s12">
-        <table class="striped highlight">
-          <% if @inactive_curriculums.empty?  %>
-            <br>
-            There are no inactive curriculums in the system at this time
-          <%else%>
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Ratings</th>
-              <th class="align_center">Times Used</th>
-              <th class="align_center">Options</th>
-            </thead>
-            <% for curriculum in @inactive_curriculums %>
-                <tr>
-                  <td class="align_center"><%= link_to "#{curriculum.name}", curriculum_path(curriculum), class: 'links' %></td>
-
-                  <td class="align_center">
-                    <% if curriculum.min_rating == 0 %>
-                      <%= "Unrated - #{curriculum.max_rating}" %>
-                    <% else %>
-                      <%= "#{curriculum.min_rating} - #{curriculum.max_rating}" %>
-                    <% end %>
-
-                        
+                          
 
 
-                  </td>
-                  <td class="align_center"><%= curriculum.camps.count %></td>
-                  <td class="align_center">
-                    <%= link_to edit_curriculum_path(curriculum) do %>
-                        <i class="material-icons color-icons">edit</i>
-                    <% end %>
-                    
-                  </td>
-                </tr>
-            <% end %>
-          <% end -%>
-        </table>
-        <br />
-        <%= will_paginate @active_curriculums, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+                    </td>
+                    <td class="align_center"><%= curriculum.camps.count %></td>
+                    <td class="align_center">
+                      <%= link_to edit_curriculum_path(curriculum) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                      
+                    </td>
+                  </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @active_curriculums, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 
-        <p>&nbsp;</p>
+          <p>&nbsp;</p>
+
+
+        </div>
+
+
+        <div id="inactive-curriculums" class="col s12">
+          <table class="striped highlight">
+            <% if @inactive_curriculums.empty?  %>
+              <br>
+              There are no inactive curriculums in the system at this time
+            <%else%>
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Ratings</th>
+                <th class="align_center">Times Used</th>
+                <th class="align_center">Options</th>
+              </thead>
+              <% for curriculum in @inactive_curriculums %>
+                  <tr>
+                    <td class="align_center"><%= link_to "#{curriculum.name}", curriculum_path(curriculum), class: 'links' %></td>
+
+                    <td class="align_center">
+                      <% if curriculum.min_rating == 0 %>
+                        <%= "Unrated - #{curriculum.max_rating}" %>
+                      <% else %>
+                        <%= "#{curriculum.min_rating} - #{curriculum.max_rating}" %>
+                      <% end %>
+                    </td>
+                    <td class="align_center"><%= curriculum.camps.count %></td>
+                    <td class="align_center">
+                      <%= link_to edit_curriculum_path(curriculum) do %>
+                          <i class="material-icons color-icons">edit</i>
+                      <% end %>
+                      
+                    </td>
+                  </tr>
+              <% end %>
+            <% end -%>
+          </table>
+          <br />
+          <%= will_paginate @active_curriculums, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
+
+          <p>&nbsp;</p>
+        </div>
 
 
 

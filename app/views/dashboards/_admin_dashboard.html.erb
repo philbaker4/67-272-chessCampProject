@@ -1,1 +1,140 @@
-<%= @admin %>
+<%# @admin %>
+<div>
+<%# pie_chart Camp.group_by_month(:start_date).count %>
+<%# line_chart camp_start_path %>
+
+</div>
+<div class='card col s8'>
+  <div class = 'card-content'>
+    <table class="striped highlight">
+      <% if @camps_this_week.empty?  %>
+        <br>
+        There are no upcoming camps in the next week
+      <%else%>
+        <thead>
+          <th class="align_center">Name</th>
+          <th class="align_center">Location</th>
+          <th class="align_center">Start</th>
+          <th class="align_center">Time</th>
+          <th class="align_center">Spots Remaining</th>
+          <th class="align_center">Options</th>
+        </thead>
+        <% for camp in @camps_this_week.chronological %>
+          <tr>
+            <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
+            <td class="align_center"><%= "#{camp.location.name}" %></td>
+
+            <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
+            <% if (camp.time_slot == "am") %>
+              <td class="align_center">Morning</td>
+            <% else %>
+              <td class="align_center">Afternoon</td>
+            <% end -%>
+            
+            <td class="align_center"><%= "#{camp.max_students - camp.registrations.count}" %></td>
+            <td class="align_center">
+              <%= link_to edit_camp_path(camp) do %>
+                  <i class="material-icons color-icons">edit</i>
+              <% end %>
+              
+            </td>
+          </tr>
+        <% end %>
+      <% end -%>
+    </table>
+    <br />
+    <%= will_paginate @camps_this_week, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+  </div>
+</div>
+
+<div class='col 3 offset-m1'>
+  <div class='card'>
+    <div class='card-content'>
+      <div class='row'>
+        <%= link_to(new_user_path, class: 'waves-effect waves-light btn col s12') do %>
+          New User
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= link_to(new_instructor_path, class: 'waves-effect waves-light btn col s12') do %>
+          New Instructor
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= link_to(new_family_path, class: 'waves-effect waves-light btn col s12') do %>
+          New Family
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= link_to(new_curriculum_path, class: 'waves-effect waves-light btn col s12') do %>
+          New Curriculum
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= link_to(new_camp_path, class: 'waves-effect waves-light btn col s12') do %>
+          New Camp
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= link_to(new_location_path, class: 'waves-effect waves-light btn col s12') do %>
+          New Location
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= link_to(new_student_path, class: 'waves-effect waves-light btn col s12') do %>
+          New Student
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+
+
+
+
+
+<div class = 'card col s6'>
+  <div class = 'card-content'>
+    <div id="active-camps" class="col s12">
+      <table class="striped highlight">
+        <% if @unpaid_registrations.empty?  %>
+          <br>
+          There are no unpaid registrations
+        <%else%>
+          <thead>
+            <th class="align_center">Camp Name</th>
+            <th class="align_center">Student Name</th>
+            <th class="align_center">Outstanding Balance</th>
+            <th class="align_center">Options</th>
+          </thead>
+          <% for registration in @unpaid_registrations %>
+            <tr>
+              <td class="align_center names"><%= link_to "#{registration.camp.name}", camp_path(registration.camp), class: "links"%></td>
+              <td class="align_center names"><%= link_to "#{registration.student.proper_name}", student_path(registration.student), class: "links"%></td>
+              
+              <% if (!registration.payment.nil? ) %>
+                <td class="align_center">PAID</td>
+              <% else %>
+                <td class="align_center"><%= "#{registration.camp.cost}" %></td>
+              <% end -%>
+              
+
+              <td class="align_center">
+                <%= link_to edit_camp_path(registration.camp) do %>
+                    <i class="material-icons color-icons">edit</i>
+                <% end %>
+                
+              </td>
+            </tr>
+          <% end %>
+        <% end -%>
+      </table>
+      <br />
+      <% will_paginate @unpaid_registrations, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+
+      <p>&nbsp;</p>
+    </div>
+  </div>
+</div>

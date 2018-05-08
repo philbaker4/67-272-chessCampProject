@@ -25,9 +25,26 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new', :as => :login
   get 'logout' => 'sessions#destroy', :as => :logout
 
+
   # Routes for managing camp instructors
   get 'camps/:id/instructors', to: 'camps#instructors', as: :camp_instructors
   post 'camps/:id/instructors', to: 'camp_instructors#create', as: :create_instructor
   delete 'camps/:id/instructors/:instructor_id', to: 'camp_instructors#destroy', as: :remove_instructor
 
+
+  #get 'dashboards/show', to: 'charts#camp_start', as: :camp_start
+
+ # get 'camps/:id/registrations', to: 'camps#registrations', as: :registrations
+  #post 'camps/:id/registrations', to: 'registrations#create', as: :create_registration
+  resources :registrations
+
+
+  # cart stuff
+  get "view_cart" => "home#view_cart", as: :view_cart
+  post "camps/add_to_cart/:id", to: "camps#add_to_cart", as: :add_to_cart
+  post "camps/remove_one_from_cart/:id", to: "camps#remove_one_from_cart", as: :remove_one_from_cart
+  post "camps/delete_from_cart/:id", to: "camps#delete_from_cart", as: :delete_from_cart
+
+
 end
+ 

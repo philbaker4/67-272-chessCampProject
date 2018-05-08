@@ -68,6 +68,7 @@
   //// A component for adding a new instructor
   /////////////////////////////////////////////
   var new_form = Vue.component('new-instructor-form', {
+
     template: '#camp-instructor-form-template',
 
     mounted() {
@@ -108,7 +109,8 @@
       camp_id: 0,
       instructors: [],
       modal_open: false,
-      errors: {}
+      errors: {}, 
+      selected:''
     },
 
     created() {
