@@ -5,8 +5,8 @@ class CampsController < ApplicationController
   include AppHelpers::Cart
 
   def index
-    @upcoming_camps = Camp.all.upcoming.alphabetical.paginate(:page => params[:page]).per_page(10)
-    @past_camps = Camp.all.past.alphabetical.paginate(:page => params[:page]).per_page(10)
+    @upcoming_camps = Camp.all.upcoming.chronological.paginate(:page => params[:page]).per_page(10)
+    @past_camps = Camp.all.past.chronological.paginate(:page => params[:page]).per_page(10)
   end
 
   def show
@@ -69,13 +69,13 @@ class CampsController < ApplicationController
   def remove_one_from_cart
     remove_one_registration_from_cart(params[:registration][:camp_id], params[:registration][:student_id])
     flash[:notice] = "Removed registration from the cart."
-    redirect_to :back
+    redirect_to view_cart_path
   end
 
   def delete_from_cart
-    delete_registration_from_cart(params[:id])
-    flash[:notice] = "Delete registration from the cart."
-    redirect_to :back
+    remove_registration_from_cart(params[:id], params[:student_id])
+    flash[:notice] = "Removed registration from the cart."
+    redirect_to view_cart_path
   end
 
 

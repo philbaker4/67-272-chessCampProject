@@ -1,10 +1,6 @@
-<% unless @camp.is_full? %> 
-  <h4 class = 'col s6 offset-m1'>Camp Details</h4>
-  <div class="card col s6 offset-m1">
-<% else %>
-  <h4 class = 'col s6 offset-m3'>Camp Details</h4>
-  <div class="card col s6 offset-m3">
-<% end %>
+<h4 class = 'col s6 offset-m1'>Camp Details</h4>
+<div class="card col s6 offset-m1">
+
   <div class="card-content">
     <%= hidden_field_tag "camp_id", @camp.id %>
 
@@ -73,13 +69,12 @@
 
 
       
-  </div>
 </div>
-
+</div>
 <div class = 'card col s4 offset-m1' id ='registrations'>
     <div  class=' card-content '>
       <h5 class='col s10'>New Registration:</h5>
-      <% if logged_in? and ((current_user.role?(:admin) or current_user.role? :parent))%>
+      <% if can? :add_to_cart, @camp and !@camp.is_full? %>
         <a href="#" v-on:click="switch_modal"> <i class="material-icons color-icons small">add</i></a>
         <div v-if="modal_open" class='col s12' >
 
@@ -101,7 +96,7 @@
               <th class="align_center">Name</th>
               <th class="align_center">Date of Birth</th>
               <th class="align_center">Rating</th>
-              <% if logged_in? and current_user.role?(:admin) %>
+              <% if can? :edit, @students.first %>
                 <th class="align_center">Options</th>
               <% end %>
 
@@ -109,7 +104,7 @@
 
             <% for student in @students %>
               <tr>
-                <% if logged_in? and (current_user.role?(:admin)  or  student.family.user == current_user or Instructor.find_by_user_id(current_user.id).camps.include?(@camp))%>
+                <% if can? :show, student%>
                   <td class="align_center"> 
                       <%= link_to "#{student.proper_name}", student_path(student) , class: "links"%>
                   </td>
@@ -121,9 +116,9 @@
 
                 <td class="align_center"><%= student.date_of_birth.strftime("%m/%d/%y") %></td>
                 <td class="align_center"><%= student.rating %></td>
-                <% if logged_in? and current_user.role?(:admin) %>
+                <% if can? :edit, student %>
                     <td class="align_center">
-                      <%= link_to edit_camp_path(@camp) do %>
+                      <%= link_to edit_student_path(student) do %>
                           <i class="material-icons color-icons">edit</i>
                       <% end %>
                     </td>
@@ -151,29 +146,30 @@
 
 
 
+  <div class="col s12 offset-m1">
+    <div class="form-actions ">
 
-<div class="col s12 offset-m1">
-  <div class="form-actions ">
-    <%= link_to(camps_path, class: 'waves-effect waves-light btn') do %>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">navigate_before</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <% end %>
-    &nbsp;&nbsp;
 
-    <% if logged_in? and current_user.role? :admin %> 
-      
-      <%= link_to(edit_camp_path(@camp), class: 'waves-effect waves-light btn') do %>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+      <%= link_to(camps_path, class: 'waves-effect waves-light btn') do %>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">navigate_before</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <% end %>
       &nbsp;&nbsp;
-      <%= link_to(camp_path(@camp), method: 'delete', data: {confirm: "Are you sure you want to permanently delete @camp.name"}, class: 'waves-effect waves-light btn btn-alert') do %>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">delete</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <% end %>
-    <% end %>
-  </div>
-</div>
 
- 
+      <% if logged_in? and current_user.role? :admin %> 
+        
+        <%= link_to(edit_camp_path(@camp), class: 'waves-effect waves-light btn') do %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">edit</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <% end %>
+        &nbsp;&nbsp;
+        <%= link_to(camp_path(@camp), method: 'delete', data: {confirm: "Are you sure you want to permanently delete @camp.name"}, class: 'waves-effect waves-light btn btn-alert') do %>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons">delete</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+   
 
 
 

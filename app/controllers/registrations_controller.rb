@@ -26,14 +26,21 @@ class RegistrationsController < ApplicationController
         payment = @registration.pay
 
         flash[:notice] = "Successfully registered"
-        remove_registration_from_cart(par[:camp_id],par[:student_id])
 
       else
+
         @camp = Camp.find(params[:registration][:camp_id])
         @student = Student.find(params[:registration][:student_id])
-        render action: 'new', locals: { camp: @camp, student: @student }
+        if Registration.where("camp_id = ? and student_id = ?", @camp.id, @student.id).empty?
+          render action: 'new', locals: { camp: @camp, student: @student }
+        end
       end
     end
+
+    @reg_ids.each do |ri|
+      remove_registration_from_cart(ri[0],ri[1])
+    end
+
 
 
   end

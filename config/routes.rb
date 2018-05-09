@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'camps/:id/instructors', to: 'camps#instructors', as: :camp_instructors
   post 'camps/:id/instructors', to: 'camp_instructors#create', as: :create_instructor
   delete 'camps/:id/instructors/:instructor_id', to: 'camp_instructors#destroy', as: :remove_instructor
+  
 
 
 
@@ -41,7 +42,8 @@ Rails.application.routes.draw do
   get "view_cart" => "home#view_cart", as: :view_cart
   post "camps/add_to_cart/:id", to: "camps#add_to_cart", as: :add_to_cart
   post "camps/remove_one_from_cart/:id", to: "camps#remove_one_from_cart", as: :remove_one_from_cart
-  post "camps/delete_from_cart/:id", to: "camps#delete_from_cart", as: :delete_from_cart
+  #post "camps/delete_from_cart/:id", to: "camps#delete_from_cart", as: :delete_from_cart
+  delete 'camps/:id/:student_id', to: 'camps#delete_from_cart', as: :remove_from_cart
 
 
 end

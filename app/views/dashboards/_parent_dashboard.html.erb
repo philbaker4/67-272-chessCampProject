@@ -1,45 +1,62 @@
 <div class = 'row'>
-  <div class = 'card col s5'>
-    <div class = 'card-content'>
-        <h5>Your Children</h5>
-        <% if @students.empty?  %>
-            <br>
-            You currently have not added any children to your family
-          <%else%>
-          <table class="striped highlight">
-            <thead>
-              <th class="align_center">Name</th>
-              <th class="align_center">Next Camp</th>
-              <th class="align_center">Rating</th>
-              <th class="align_center">Options</th>
+  <div class = 'col s5'>
+    <div class = 'card'>
+      <div class = 'card-content'>
+        <div class = 'row'>
+          <h5 class = 'col s6'>Your Children</h5>
+          <%= link_to new_student_path do %>
+            <i class="material-icons color-icons">add</i>
+          <% end %>
+        </div>
+          <% if @students.empty?  %>
+              <br>
+              You currently have not added any children to your family
+            <%else%>
+            <table class="striped highlight">
+              <thead>
+                <th class="align_center">Name</th>
+                <th class="align_center">Next Camp</th>
+                <th class="align_center">Rating</th>
+                <th class="align_center">Options</th>
 
-            </thead>
+              </thead>
 
-            <% for student in @students %>
-              <tr>
-                <td class="align_center"> <%= link_to "#{student.first_name}", student_path(student) , class: "links"%></td>
-                <% if !student.camps.upcoming.chronological.empty? %>
-                  <td class="align_center"><%= "#{student.camps.upcoming.chronological.first.start_date.strftime('%m/%d/%y')}" %></td>
-                <% else %> 
-                  <td class="align_center"> N/A </td>
-                <% end %>
-                <td class="align_center"><%= "#{student.rating}" %></td>
-                <td class="align_center">
-                  <%= link_to edit_student_path(student) do %>
-                      <i class="material-icons color-icons">edit</i>
-                  <% end %> 
-                </td>
-              </tr>
-            <%end%>
-           </table>
-          <% end -%>
+              <% for student in @students %>
+                <tr>
+                  <td class="align_center"> <%= link_to "#{student.first_name}", student_path(student) , class: "links"%></td>
+                  <% if !student.camps.upcoming.chronological.empty? %>
+                    <td class="align_center"><%= link_to "#{student.camps.upcoming.chronological.first.start_date.strftime('%m/%d/%y')}", camp_path(student.camps.upcoming.chronological.first), class: "links" %></td>
+                  <% else %> 
+                    <td class="align_center"> N/A </td>
+                  <% end %>
+                  <td class="align_center"><%= "#{student.rating}" %></td>
+                  <td class="align_center">
+                    <%= link_to edit_student_path(student) do %>
+                        <i class="material-icons color-icons">edit</i>
+                    <% end %> 
+                  </td>
+                </tr>
+              <%end%>
+             </table>
+            <% end -%>
+      </div>
+
+
     </div>
-
-  </div>
+    <div class='card '>
+      <div class = 'card-content'>
+          <div >
+        
+            <%= high_chart_globals(@chart_globals) %>
+            <%= high_chart("some_id", @chart) %>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <div class = 'card col s6 offset-s1'>
     <div class = 'card-content'>
-        <h5>Upcoming Registrations</h5>
+        <h5>Your Upcoming Camps</h5>
 
         <table class="striped highlight">
           <% if @upcoming_reg.empty?  %>
@@ -84,4 +101,5 @@
 
   </div>
 </div>
+
 

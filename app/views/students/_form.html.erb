@@ -9,7 +9,7 @@
         <%= f.input :first_name, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
         <%= f.input :last_name, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
         <% if logged_in? and current_user.role? :parent %>
-          <%= f.input :family_id, as: :hidden, input_html: { value: @student.family.id }%>
+          <%= f.input :family_id, as: :hidden, input_html: { value: @family.id }%>
         <% else %> 
           <%= f.input :family_id, collection: @families, include_blank:true, wrapper_html: {class: 'col s4'}%>
         <% end %>

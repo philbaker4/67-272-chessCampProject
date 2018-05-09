@@ -35,7 +35,11 @@
 
           <% for camp in @upcoming_camps_using.alphabetical %>
             <tr>
+              <% if can? :show, camp.location %>
               <td class="align_center"> <%= link_to "#{camp.location.name}", location_path(camp.location) , class: "links"%></td>
+              <% else %>
+                <td class="align_center"> <%= "#{camp.location.name}"%></td>
+              <% end %>
               <td class="align_center"><%= link_to "#{camp.start_date.strftime('%m/%d/%y')} - #{camp.end_date.strftime('%m/%d/%y')}" , camp_path(camp), class:'links'%></td>
               <td class="align_center"><% if camp.time_slot == "am" %>
                   Morning

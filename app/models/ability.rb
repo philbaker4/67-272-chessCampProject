@@ -42,7 +42,7 @@ class Ability
         can :update, User, id: user.id # bad line. janky fix in object options 
         can :update, Family, user_id: user.id
         can :show, Family, user_id: user.id
-        
+         
 
         can :manage, Student do |s|
           Family.find_by_user_id(user.id).students.map{|stud| stud.id}.include? s.id
@@ -54,6 +54,9 @@ class Ability
         can :create, Registration do |reg|
           Family.find_by_user_id(user.id).students.map{|stud| stud}.include?(Student.find(reg.student_id))
         end
+
+        can :add_to_cart, Camp
+        can :delete_from_cart, Camp
 
       else
 

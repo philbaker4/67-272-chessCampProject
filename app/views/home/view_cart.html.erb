@@ -2,7 +2,7 @@
 
 <div class = 'card col s8'>
   <div class = 'card-content'>
-    <h5>Registrations</h5>
+    <h4>Registrations</h4>
       <table class="striped highlight">
         <% if @cart_reg.empty?  %>
           <br>
@@ -20,22 +20,22 @@
             <% camp = registration[:camp] %>
             <% student = registration[:student] %>
             <tr>
-              <td class="align_center "><%= link_to "#{student.proper_name}", student_path(student), class: "links"%></td>
+              <td class="align_center "><%= link_to "#{student.first_name}", student_path(student), class: "links"%></td>
               <td class="align_center "><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
               <td class="align_center "><%= camp.start_date.strftime("%m/%d/%y")%></td>
               <td class="align_center "><%= number_to_currency(camp.cost)%></td>
               <td class="align_center">
-                <%# link_to remove_one_from_cart_path(registration), html_options = {method: :post} do %>
-                    <i class="material-icons color-icons">edit</i>
-                <%# end %>
+                <%= link_to remove_from_cart_path({id: camp.id, student_id: student.id}), html_options = {method: :delete} do %>
+                    <i class="material-icons color-icons">delete</i>
+                <% end %>
                 
               </td>
             </tr>
           <% end %>
         <% end -%>
       </table> 
+      <br><b class = 'right'>Total Cost: <%= number_to_currency(@price) %></b><br>
 
-            <%= @price %>
 
 
   </div>
@@ -43,29 +43,30 @@
 
 
 
-<div class = 'card col s4'>
+<div class = 'card col s3 offset-m1'>
   <div  class=' card-content col s12 '>
-    <h5>Payment</h5>
+    <h4>Checkout</h4>
     <% if @cart_reg.empty?  %>
       
       <b>No camps to register</b>
 
     <% else %>
     <div class="row">
-  <div class="col s8 offset-m2">
+  <div class="col s12 ">
     <% @registration = Registration.new %>
 
-    <h4>Checkout</h4>
+    <h5>Payment Info</h5>
     <%= simple_form_for(@registration) do |f| %>
       <%= f.error_notification %>
       <div class="row">
         <div class="form-inputs col s12">
-          <%= f.input :student_id, as: :hidden, input_html: { value: @cart_items[0][1] }%>
-          <%= f.input :camp_id, as: :hidden, input_html: { value: @cart_items[0][0] } %>
+
 
           <%= f.input :credit_card_number %>
           <%= f.input :expiration_month %>
           <%= f.input :expiration_year %>
+                    <%= f.input :student_id, as: :hidden, input_html: { value: @cart_items[0][1] }%>
+          <%= f.input :camp_id, as: :hidden, input_html: { value: @cart_items[0][0] } %>
 
           
         </div>

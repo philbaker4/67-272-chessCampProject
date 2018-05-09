@@ -3,7 +3,7 @@
   <div id="main">
     <div class="row card">
       <div class = 'card-content'>
-        <% if logged_in? and current_user.role? :admin %>
+        <% if can? :create, Curriculum %>
             <div class='row'>
               <%= link_to(new_curriculum_path, class: 'waves-effect waves-light btn col s12') do %>
                 New Curriculum
@@ -28,7 +28,10 @@
                 <th class="align_center">Name</th>
                 <th class="align_center">Ratings</th>
                 <th class="align_center">Times Used</th>
-                <th class="align_center">Options</th>
+                <% if can? :edit, Curriculum %>
+
+                  <th class="align_center">Options</th>
+                <% end%>
               </thead>
               <% for curriculum in @active_curriculums %>
                   <tr>
@@ -47,8 +50,10 @@
                     </td>
                     <td class="align_center"><%= curriculum.camps.count %></td>
                     <td class="align_center">
-                      <%= link_to edit_curriculum_path(curriculum) do %>
-                          <i class="material-icons color-icons">edit</i>
+                      <% if can? :edit, Curriculum %>
+                        <%= link_to edit_curriculum_path(curriculum) do %>
+                            <i class="material-icons color-icons">edit</i>
+                        <% end %>
                       <% end %>
                       
                     </td>

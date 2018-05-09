@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = "You are not authorized to do that. Please login or create an account."
-    redirect_to home_path
+    flash[:error] = "You are not authorized to view that page."
+    redirect_to dashboard_path
   end
 end
