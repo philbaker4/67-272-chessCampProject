@@ -1,6 +1,8 @@
 class FamiliesController < ApplicationController
   before_action :set_family, only: [:show, :edit, :update, :destroy]
   authorize_resource
+      include AppHelpers::Cart
+
 
 
   def index
@@ -22,27 +24,42 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(family_params)
-    @user = User.new(user_params)
-    @user.role = "family"
-    if !@user.save
-        flash[:notice] = "first"
+    @user = User.new
+    @user.role = "parent"
+    @user.username = params[:family]["username"]
+    @user.password = params[:family]["password"]
+    @user.password_confirmation = params[:family]["password_confirmation"]
+    @user.phone = params[:family]["phone"]
+    @user.email = params[:family]["email"]
+    if @user.valid?
+      @family.user_id = User.where('role = ?', 'admin').last.id 
 
-      @family.valid?
-      flash[:notice] = "secinbd"
-      render action: 'new'
-    else
-      @family.user_id = @user.id
-      if @family.save
-        flash[:notice] = "The #{@family.family_name} family account was created."
-        redirect_to family_path(@family) 
+      if @family.valid?
+        @user.save
+        @family.user_id = @user.id
+        @family.save
+        if !logged_in?
+          reset_session
+          destroy_cart
+          redirect_to new_fam_login_path({email: @user.email, password: @user.password}) and return 
+        end
+        redirect_to family_path(@family)
       else
-        render action: 'new'
-      end      
+        flash[:notice] = "Family info not valid"
+        render 'new'
+      end
+
+    else
+      flash[:notice] = "User info not valid"
+      render 'new'
     end
 
-
-   
+      
+    
   end
+
+
+
 
   def update
     @family.update(family_params)
@@ -64,10 +81,7 @@ class FamiliesController < ApplicationController
     end
 
     def family_params
-      params.require(:family).permit(:family_name, :parent_first_name, :username, :email, :phone, :password, :password_confirmation)
+      params.require(:family).permit(:family_name, :parent_first_name, :username, :email, :phone, :password, :password_confirmation, :active)
     end
 
-    def user_params
-    params.require(:family).permit(:username, :email, :phone, :password, :password_confirmation)
-  end
 end

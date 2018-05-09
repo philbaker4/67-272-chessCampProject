@@ -4,12 +4,14 @@
     <div class="row">
       <div class=" card col s12">
         <div class='card-content'>
-          <div class='row'>
-            <%= link_to(new_camp_path, class: 'waves-effect waves-light btn col s12') do %>
-              New Camp
-            <% end %>
-          </div>
-          <div class="divider"></div>
+          <% if logged_in? and current_user.role? :admin %>
+            <div class='row'>
+              <%= link_to(new_camp_path, class: 'waves-effect waves-light btn col s12') do %>
+                New Camp
+              <% end %>
+            </div>
+            <div class="divider"></div>
+          <% end %>
 
 
           <ul class="tabs">

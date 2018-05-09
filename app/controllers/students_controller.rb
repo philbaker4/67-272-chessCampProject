@@ -20,12 +20,19 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
+    if logged_in? and current_user.role? :parent
+      @family = Family.find_by_user_id(current_user.id)
+    else
+      @families = Family.active.alphabetical
+    end
+      
+
   end
 
   def create
     @student = Student.new(student_params)
     if @student.save
-      redirect_to student_path(@student), notice: "#{@student.first_name @student.last_name} was added to the system."
+      redirect_to student_path(@student.id), notice: "#{@student.first_name @student.last_name} was added to the system."
     else
       render action: 'new'
     end
@@ -41,8 +48,14 @@ class StudentsController < ApplicationController
   end
 
   def destroy
+    first_name = @student.first_name
+    last_name = @student.last_name
     @student.destroy
-    redirect_to students_url, notice: "#{@student.first_name @student.last_name} was removed from the system."
+    if logged_in? and current_user.role? :admin
+      redirect_to students_path, notice: "#{first_name last_name} was removed from the system."
+    else
+      redirect_to dashboard_path
+    end
   end
 
 

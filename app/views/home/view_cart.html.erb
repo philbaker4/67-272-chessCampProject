@@ -51,9 +51,42 @@
       <b>No camps to register</b>
 
     <% else %>
+    <div class="row">
+  <div class="col s8 offset-m2">
+    <% @registration = Registration.new %>
+
+    <h4>Checkout</h4>
+    <%= simple_form_for(@registration) do |f| %>
+      <%= f.error_notification %>
+      <div class="row">
+        <div class="form-inputs col s12">
+          <%= f.input :student_id, as: :hidden, input_html: { value: @cart_items[0][1] }%>
+          <%= f.input :camp_id, as: :hidden, input_html: { value: @cart_items[0][0] } %>
+
+          <%= f.input :credit_card_number %>
+          <%= f.input :expiration_month %>
+          <%= f.input :expiration_year %>
+
+          
+        </div>
+      </div>
 
 
-      <%= button_to "checkout", new_registration_path, method: :get %>
+
+      <div class="row col s3">
+        <div class="form-actions col s8">
+          <%= f.button :submit, "Checkout" %>
+        </div>
+      </div>
+
+      <br><br><br>
+      
+
+    <% end %>
+  </div>
+  
+</div> 
+
       
 
 

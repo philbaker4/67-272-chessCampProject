@@ -1,24 +1,35 @@
 
-<div class = 'col s8 offset-m2'>
+<div class = 'col s6 offset-m3'>
 
-  <%= simple_form_for(@family) do |f| %>
+  <%= simple_form_for(@student) do |f| %>
     <%= f.error_notification %>
-
-    <div class="row">
-      <%= f.input :parent_first_name, wrapper_html: {class: 'col s6'}%>
-      <%= f.input :family_name, wrapper_html: {class: 'col s6'}%>
-
-
-    </div>
+    
+    <div class='form-inputs'>
+      <div class='row'>
+        <%= f.input :first_name, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
+        <%= f.input :last_name, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
+        <% if logged_in? and current_user.role? :parent %>
+          <%= f.input :family_id, as: :hidden, input_html: { value: @student.family.id }%>
+        <% else %> 
+          <%= f.input :family_id, collection: @families, include_blank:true, wrapper_html: {class: 'col s4'}%>
+        <% end %>
+      </div>
+      <div class='row'>
+        <%= f.input :date_of_birth, wrapper_html: {class: 'col s3 datepicker '}, label_html: { class: 'active' }, wrapper_html: {class: 'col s4'}%>
+        <%= f.input :rating , label_html: { class: 'active' }, wrapper_html: {class: 'col s4'}%> 
+        <%= f.input :active , label_html: { class: 'active' }, wrapper_html: {class: 'col s4'}%>
+      </div>
+</div>
 
     
+    
     <div class="row">
-      <%= f.input :active %>
+
 
     </div>
 
 
-    <br>
+    <br> 
     <div class="row">
       <div class="form-actions col s8">
         <%= f.button :submit %>
@@ -28,40 +39,5 @@
 
 
 
-<!--          handle user edits with ajax  ?????
-
-    -password
-    -phone
-    -email
-
-
-
-
-  <%# simple_form_for(@family.user) do |f| %>
-    <%# f.error_notification %>
-
-    <div class="row">
-      
-      <%# f.input :password, wrapper_html: {class: 'col s6'}%>
-
-
-    </div>
-
-    
-    <div class="row">
-      <%# f.input :active %>
-
-    </div>
-
-
-    <br>
-    <div class="row">
-      <div class="form-actions col s8">
-        <%# f.button :submit %>
-      </div>
-    </div>
-  <%# end %>
-
--->
 
 </div>

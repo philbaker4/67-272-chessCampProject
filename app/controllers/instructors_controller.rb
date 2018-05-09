@@ -22,11 +22,33 @@ class InstructorsController < ApplicationController
 
   def create
     @instructor = Instructor.new(instructor_params)
-    if @instructor.save
-      redirect_to instructor_path(@instructor), notice: "#{@instructor.first_name} #{@instructor.last_name} was added to the system."
+    @user = User.new
+    @user.role = "instructor"
+    @user.username = params[:instructor]["username"]
+    @user.password = params[:instructor]["password"]
+    @user.password_confirmation = params[:instructor]["password_confirmation"]
+    @user.phone = params[:instructor]["phone"]
+    @user.email = params[:instructor]["email"]
+    if @user.valid?
+      @instructor.user_id = User.where('role = ?', "admin").last.id 
+
+      if @instructor.valid?
+        @user.save
+        @instructor.user_id = @user.id
+
+        @instructor.save
+        redirect_to instructor_path(@instructor)
+      else
+        flash[:notice] = "Family info not valid"
+        render 'new'
+      end
+
     else
-      render action: 'new'
+      flash[:notice] = "User info not valid"
+      render 'new'
     end
+
+      
   end
 
   def update
@@ -48,6 +70,6 @@ class InstructorsController < ApplicationController
     end
 
     def instructor_params
-      params.require(:instructor).permit(:first_name, :last_name, :bio, :user_id,  :active, :photo)
+      params.require(:instructor).permit(:first_name, :last_name, :bio, :user_id,  :active, :username, :email, :phone, :password, :password_confirmation,)
     end
 end

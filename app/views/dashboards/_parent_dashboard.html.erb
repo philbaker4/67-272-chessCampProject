@@ -17,7 +17,7 @@
 
             <% for student in @students %>
               <tr>
-                <td class="align_center"> <%= link_to "#{student.first_name} #{student.last_name}", student_path(student) , class: "links"%></td>
+                <td class="align_center"> <%= link_to "#{student.first_name}", student_path(student) , class: "links"%></td>
                 <% if !student.camps.upcoming.chronological.empty? %>
                   <td class="align_center"><%= "#{student.camps.upcoming.chronological.first.start_date.strftime('%m/%d/%y')}" %></td>
                 <% else %> 
@@ -42,32 +42,31 @@
         <h5>Upcoming Registrations</h5>
 
         <table class="striped highlight">
-          <% if @upcoming_camps.empty?  %>
+          <% if @upcoming_reg.empty?  %>
             <br>
-            There are no upcoming camps in the system at this time
+            There are no upcoming registrations in the system at this time
           <%else%>
             <thead>
-              <th class="align_center">Name</th>
+              <th class="align_center">Camp Name</th>
+              <th class="align_center">Student Name</th>              
               <th class="align_center">Start</th>
               <th class="align_center">Time</th>
               <th class="align_center">Location</th>
-              <th class="align_center">Options</th>
             </thead>
-            <% for camp in @upcoming_camps %>
+            <% for reg in @upcoming_reg %>
               <tr>
-                <td class="align_center names"><%= link_to "#{camp.name}", camp_path(camp), class: "links"%></td>
-                <td class="align_center"><%= "#{camp.start_date.strftime('%m/%d/%y')}" %></td>
-                <% if (camp.time_slot == "am") %>
+                <td class="align_center names"><%= link_to "#{reg[0].name}", camp_path(reg[0]), class: "links"%></td>
+                <td class="align_center names"><%= link_to "#{reg[1].first_name}", student_path(reg[1]), class: "links"%></td>
+
+                <td class="align_center"><%= "#{reg[0].start_date.strftime('%m/%d/%y')}" %></td>
+                <% if (reg[0].time_slot == "am") %>
                   <td class="align_center">Morning</td>
                 <% else %>
                   <td class="align_center">Afternoon</td>
                 <% end -%>
                 
-                <td class="align_center"><%= "#{camp.location.name}" %></td>
-                <td class="align_center">
-                  <%= link_to edit_camp_path(camp) do %>                                  <!-- handle payment here -->
-                      <i class="material-icons color-icons">edit</i>
-                  <% end %>
+                <td class="align_center"><%= "#{reg[0].location.name}" %></td>
+                
 
                  <%# link_to(registration_path(camp.registration), method: 'delete', data: {confirm: "Are you sure you want to remove this registration"}, class: 'waves-effect waves-light btn btn-alert') do %>
       <!--<i class="material-icons">delete</i>-->
@@ -79,9 +78,10 @@
           <% end -%>
         </table>
         <br />
-        <%= will_paginate @upcoming_camps, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
+        <%= will_paginate @upcoming_reg, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next"%>
 
     </div>
 
   </div>
 </div>
+

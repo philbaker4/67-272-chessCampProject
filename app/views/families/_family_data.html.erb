@@ -2,7 +2,7 @@
   <div class="card-content">
     <h4><%= @family.parent_first_name %> <%= @family.family_name %> </h4><br>
 
-    <b>Phone   </b>  <%= "#{@family.phone}" %><br>
+    <b>Phone   </b>  <%= "#{@family.phone.insert(3,'-').insert(7,'-')}" %><br>
     <b>Email   </b>  <%= "#{@family.email}" %><br>
     <b>Username</b>  <%= "#{@family.username}" %><br>
     <% if @family.active %>

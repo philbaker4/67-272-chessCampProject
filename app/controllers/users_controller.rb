@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  authorize_resource
   include AppHelpers::Cart
 
   def new
@@ -12,11 +13,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.role = 'admin'
     if @user.save 
-      session[:user_id] = @user.id
-      create_cart
 
-      redirect_to(home_path)
+      redirect_to users_path
     end
 
   end

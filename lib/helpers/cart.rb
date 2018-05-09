@@ -20,7 +20,7 @@ module AppHelpers
     end
 
     def add_registration_to_cart(camp_id, student_id)
-      # only add the registration if not already in the cart
+      # only add the registration if not already in the cart 
       unless session[:cart].map{|ci| ci["ids"]}.include? [camp_id, student_id]
         # if not, create a cart item for easy display later
         camp = Camp.find(camp_id)

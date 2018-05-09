@@ -2,34 +2,68 @@
 <div class="row">
   <div class="col s8 offset-m2">
     <h4>Checkout</h4>
-    <%= simple_form_for(@registration) do |f| %>
-      <%= f.error_notification %>
-      <div class="row">
-        <div class="form-inputs col s8">
-          <%= f.input :student_id, as: :hidden, input_html: { value: @student.id }%>
-          <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
-          <%= f.input :credit_card_number %>
-          <%= f.input :expiration_month %>
-          <%= f.input :expiration_year %>
+    <div class='card'>
+      <div class='card-content'>
+        <%= simple_form_for(@registration) do |f| %>
+          <%= f.error_notification %>
 
+              <div class='row'>
+                <div class = 'col s6'>
+                  <%= f.input :credit_card_number, wrapper_html: { class: 'col s12'}%>
+
+
+                  <%= f.input :expiration_month , wrapper_html: { class: 'col s6'}%>
+                  <%= f.input :expiration_year, wrapper_html: { class: 'col s6'} %>
+                </div>
+                <div class ='col s6'>
+                  <table class="striped highlight">
+                    <thead>
+                      <th class="align_center">Student Name</th>
+                      <th class="align_center">Camp Name</th>
+                      <th class="align_center">Cost</th>
+
+                    </thead>
+                    <% for registration in @reg_ids %>
+
+                      <% camp = Camp.find(registration[0]) %>
+                      <% student = Student.find(registration[1]) %>
+                      <tr>
+                        <td class="align_center "><%= student.proper_name%></td>
+                        <td class="align_center "><%= camp.name%></td>
+
+                        <td class="align_center "><%= number_to_currency(camp.cost) %></td>
+
+
+                      </tr>
+                    <% end %>
+                  </table>
+                  <b class = 'right'>Total Cost: <%= number_to_currency(@price) %></b>
+                  <b class = 'right'>Total Cost: <%= @price.nil? %></b>
+                </div>
+              </div>
+
+
+              <%= f.input :student_id, as: :hidden, input_html: { value: @student.id }%>
+              <%= f.input :camp_id, as: :hidden, input_html: { value: @camp.id } %>
           
-        </div>
+
+
+
+
+
+          <div class="row col s3">
+            <div class="form-actions col s8">
+              <%= f.button :submit, "Process Payment" %>
+            </div>
+          </div>
+
+
+          <br><br><br>
+          
+
+        <% end %>
       </div>
-
-
-
-
-
-      <div class="row col s3">
-        <div class="form-actions col s8">
-          <%= f.button :submit, "Checkout" %>
-        </div>
-      </div>
-
-      <br><br><br>
-      
-
-    <% end %>
+    </div>
   </div>
   
-</div>
+</div> 

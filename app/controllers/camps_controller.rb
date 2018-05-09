@@ -1,6 +1,6 @@
 class CampsController < ApplicationController
   before_action :set_camp, only: [:show, :edit, :update, :destroy, :instructors, :registrations]
-
+  authorize_resource
 
   include AppHelpers::Cart
 
@@ -17,7 +17,7 @@ class CampsController < ApplicationController
     if logged_in? and current_user.role? :admin
       @students_for_camp = Student.active.at_or_above_rating(@camp.curriculum.min_rating).below_rating(@camp.curriculum.max_rating).alphabetical.to_a - same_time_slot_camp
     elsif logged_in? and current_user.role? :parent
-      @students_for_camp = Family.find_by_user_id(current_user.id).students.active.at_or_above_rating(@camp.curriculum.min_rating).below_rating(@camp.curriculum.min_rating).alphabetical.to_a - same_time_slot_camp
+      @students_for_camp = Family.find_by_user_id(current_user.id).students.active.at_or_above_rating(@camp.curriculum.min_rating).below_rating(@camp.curriculum.max_rating).alphabetical.to_a - same_time_slot_camp
     end
     same_time_slot_instructor = Camp.where('start_date = ? and time_slot = ?', @camp.start_date, @camp.time_slot).alphabetical.map{|c| c.instructors.to_a}.to_a.flatten!
 
@@ -25,7 +25,7 @@ class CampsController < ApplicationController
 
   end
 
-  def edit
+  def edit 
   end
 
   def new

@@ -1,6 +1,6 @@
 <div class = 'col s8 offset-m2'>
 
-  <%= simple_form_for(@instructor, multipart: true) do |f| %>
+  <%= simple_form_for(@instructor) do |f| %>
     <%= f.error_notification %>
 
 
@@ -11,12 +11,6 @@
 
       </div>
 
-      <div class="row">
-
-        <%= f.input :email, wrapper_html: {class: 'col s6'}%>
-        <%= f.input :phone, wrapper_html: {class: 'col s6'}%>
-
-      </div>
 
       <div class = 'row'>
         <%= f.input :bio, wrapper_html: {class: 'col s12 materialize-textarea'}%>
@@ -25,10 +19,30 @@
       <div class="row">
         <%= f.input :active %>
       </div>
-        <div class="field">
-          <%= f.label :photo %><br />
-          <%= f.file_field :photo %>
-        </div>
+      <div class="row">
+        <%= f.label :photo %><br />
+        <%= f.file_field :photo %>
+      </div>
+
+      <br>
+      <h5 >User Info</h5>
+      <br>
+      <div class="row">
+        <% if @instructor.user.nil? %>
+          <%= f.input :username, label_html: { class: 'active' }, wrapper_html: {class: 'col s4'} %>
+        <% else %>
+          <b >Username:</b>  <%= @instructor.user.username %><br><br>
+        <% end %>
+        <%= f.input :email, label_html: { class: 'active' }, wrapper_html: {class: 'col s5'} %>
+
+        <%= f.input :phone, label_html: { class: 'active' }, wrapper_html: {class: 'col s3'} %>
+      </div>
+      <div class="row">
+        <%= f.input :password, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
+        <%= f.input :password_confirmation, label_html: { class: 'active' }, wrapper_html: {class: 'col s6'} %>
+      </div>
+
+
 
 
       

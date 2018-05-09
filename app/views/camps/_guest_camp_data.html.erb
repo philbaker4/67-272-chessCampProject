@@ -31,23 +31,7 @@
     <b><%= @camp.active ? "Active" : "Inactive" %></b><br><br>
   </div>
 
-    <div id='instructors_list' class='col s6'>
-        <h5 >Instructors</h5>
-        <div v-show="instructors.length > 0"  class='col s12'> 
-          <ul is='instructor-row' 
-            v-for="instructor in instructors" 
-            v-bind:instructor="instructor">  
-          </ul>
-
-          <br>
-        </div>
-
-        <div v-show="instructors.length == 0" class='col s12'>
-          No instructors at this time
-        </div>
-
-      </div>   
-    </div>
+    
 
   </div>
 </div>
@@ -75,18 +59,6 @@
 
 
 
-
-
-
-<script type="text/x-template" id='instructor-row'>
-
-    <li>
-      <% if logged_in? and current_user.role?(:admin) %> 
-        <a v-on:click="remove_record(instructor)" class="remove links">x&nbsp;&nbsp;</a>
-      <%end%>
-      {{ instructor.first_name }} {{ instructor.last_name }}
-    </li>
-</script>
 
 
 

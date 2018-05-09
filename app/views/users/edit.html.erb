@@ -1,0 +1,8 @@
+<h5 class="col s8 offset-m2">Edit Admin</h5>
+
+<%= render 'form', user: @user %>
+
+<div class="row col s12">
+  <%= link_to 'Show', user_path(@user) , class: "links"%> |
+  <%= link_to 'Index', users_path, class: "links" %>
+</div>

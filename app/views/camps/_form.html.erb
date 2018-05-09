@@ -14,7 +14,7 @@
 
   </div>
   <div class='row'>
-    <%= f.input :start_date,  input_html: {value: Date.today.strftime('%m/%d/%y')}, wrapper_html: {class: 'col s3 datepicker'}%>
+    <%= f.input :start_date,   wrapper_html: {class: 'col s3 datepicker'}%>
     <%= f.input :end_date, :order => [:month, :day, :year], wrapper_html: {class: 'col s3'}%>
   </div>
   <div class='row'>

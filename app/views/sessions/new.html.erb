@@ -1,20 +1,25 @@
-<h3>Log In</h3>
+  
+<div class='col s4 offset-m4'>
+  <h3>Log In</h3>
 
-<%= form_tag sessions_path do %>
+  <%= form_tag sessions_path do %>
 
-  <div class="control-group">
-    <%= label_tag :email %>
-    <div class="controls">
-      <%= text_field_tag :email, params[:email] %>
+    <div class="control-group">
+      <%= label_tag :email %>
+      <div class="controls">
+        <%= text_field_tag :email, params[:email] %>
+      </div>
     </div>
-  </div>
 
-  <div class="control-group">
-    <%= label_tag :password %>
-    <div class="controls">
-      <%= password_field_tag :password %>
+    <div class="control-group">
+      <%= label_tag :password %>
+      <div class="controls">
+        <%= password_field_tag :password %>
+      </div>
     </div>
-  </div>
 
-  <div class="form-actions col s8"><%= submit_tag "Log In" %></div>
-<% end %>
+    <div class="form-actions waves-effect waves-light btn col s4"><%= submit_tag "Log In" %></div>
+
+    
+  <% end %>
+</div>

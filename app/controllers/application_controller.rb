@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = "Go away or I shall taunt you a second time."
+    flash[:error] = "You are not authorized to do that. Please login or create an account."
     redirect_to home_path
   end
 end

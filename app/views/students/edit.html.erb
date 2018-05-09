@@ -1,8 +1,8 @@
-<h5 class="col s8 offset-m2">Editing Family</h5>
+<h5 class="col s6 offset-m3">Editing Student</h5>
 
-<%= render 'form', family: @family %>
+<%= render 'form', student: @student %>
 
 <div class="row col s12">
-  <%= link_to 'Show', @family , class: "links"%> |
-  <%= link_to 'Back', families_path, class: "links" %>
+  <%= link_to 'Show', student_path(@student) , class: "links"%> |
+  <%= link_to 'Index', students_path, class: "links" %>
 </div>

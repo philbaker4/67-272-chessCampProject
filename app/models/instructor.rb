@@ -3,6 +3,9 @@ class Instructor < ApplicationRecord
   extend AppHelpers::Activeable::ClassMethods
   mount_uploader :photo, PhotoUploader
 
+
+  attr_accessor :username, :phone, :email, :password, :password_confirmation
+
   # relationships
   belongs_to :user
   has_many :camp_instructors

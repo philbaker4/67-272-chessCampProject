@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new', :as => :signup
   get 'login' => 'sessions#new', :as => :login
   get 'logout' => 'sessions#destroy', :as => :logout
+  get 'new_fam_login', to: 'sessions#create', as: :new_fam_login
 
 
   # Routes for managing camp instructors
@@ -32,10 +33,7 @@ Rails.application.routes.draw do
   delete 'camps/:id/instructors/:instructor_id', to: 'camp_instructors#destroy', as: :remove_instructor
 
 
-  #get 'dashboards/show', to: 'charts#camp_start', as: :camp_start
 
- # get 'camps/:id/registrations', to: 'camps#registrations', as: :registrations
-  #post 'camps/:id/registrations', to: 'registrations#create', as: :create_registration
   resources :registrations
 
 

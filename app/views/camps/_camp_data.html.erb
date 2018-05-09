@@ -1,7 +1,10 @@
- 
-<h4 class = 'col s6 offset-m1'>Camp Details</h4>
-<div class="card col s6 offset-m1">
-  
+<% unless @camp.is_full? %> 
+  <h4 class = 'col s6 offset-m1'>Camp Details</h4>
+  <div class="card col s6 offset-m1">
+<% else %>
+  <h4 class = 'col s6 offset-m3'>Camp Details</h4>
+  <div class="card col s6 offset-m3">
+<% end %>
   <div class="card-content">
     <%= hidden_field_tag "camp_id", @camp.id %>
 
@@ -27,51 +30,67 @@
     <%= "#{@camp.max_students - @camp.enrollment}"  %><br>
 
     <b><%= @camp.active ? "Active" : "Inactive" %></b><br>
-
-    <div id='instructors_list'>
-      <div class='row'>
-        <div class='col s6'>
-          <h5 >Instructors</h5>
-            <% if logged_in? and current_user.role?(:admin)%>
-              <a href="#" v-on:click="switch_modal" class = 'col s1'> <i class="material-icons color-icons small">add</i></a>
-            <% end -%>
+    <% if logged_in? and !current_user.role? :parent %>
+      <div id='instructors_list'>
         <div class='row'>
-          <div v-show="instructors.length > 0"  class='col s12'> 
-            <ul is='instructor-row' 
-              v-for="instructor in instructors" 
-              v-bind:instructor="instructor">  
-            </ul>
+          <div class='col s6'>
+            <h5 >Instructors</h5>
+              <% if logged_in? and current_user.role?(:admin)%>
+                <a href="#" v-on:click="switch_modal" class = 'col s1'> <i class="material-icons color-icons small">add</i></a>
+              <% end -%>
+          <div class='row'>
+            <% if @camp.instructors.empty? %>
+              No instructors
+            <% else %>
+              <ul is='instructor-row' 
+                v-for="instructor in instructors" 
+                v-bind:instructor="instructor">  
+              </ul>
 
-            <br>
+              <br>
+            <% end %>
+
+
+
           </div>
 
-          <div v-show="instructors.length == 0" class='col s12'>
-            No instructors at this time
+            
+          </div>
+
+          <div class = 'col s6'>
+            <div v-if="modal_open"  >
+
+              <new-instructor-form></new-instructor-form>
+            </div>
+
           </div>
         </div>
 
-          
-        </div>
-
-        <div class = 'col s6'>
-                  <div v-if="modal_open"  >
-
-          <new-instructor-form></new-instructor-form>
-        </div>
-
-        </div>
       </div>
-          
+    <% end %>
+
+  </div>
+
+
       
+  </div>
+</div>
 
+<div class = 'card col s4 offset-m1' id ='registrations'>
+    <div  class=' card-content '>
+      <h5 class='col s10'>New Registration:</h5>
+      <% if logged_in? and ((current_user.role?(:admin) or current_user.role? :parent))%>
+        <a href="#" v-on:click="switch_modal"> <i class="material-icons color-icons small">add</i></a>
+        <div v-if="modal_open" class='col s12' >
 
+          <new-registration-form></new-registration-form>
+        </div>
 
+      <% end -%>
+    </div>
+    <div id ='students-table'>
 
-      </div>
-    
-      <div id ='students-table'>
-
-        <% if logged_in? and (current_user.role?(:admin)  or (current_user.role?(:instructor) and Instructor.find_by_user_id(current_user).camps.include?(@camp)) )%>
+        <% if logged_in? and (current_user.role?(:admin)  or (current_user.role?(:instructor) and Instructor.find_by_user_id(current_user.id).camps.include?(@camp)) )%>
           <h5>Students</h5>
           <% if @students.empty?  %>
                 <br>
@@ -90,7 +109,7 @@
 
             <% for student in @students %>
               <tr>
-                <% if logged_in? and (current_user.role?(:admin)  or  student.family.user == current_user)%>
+                <% if logged_in? and (current_user.role?(:admin)  or  student.family.user == current_user or Instructor.find_by_user_id(current_user.id).camps.include?(@camp))%>
                   <td class="align_center"> 
                       <%= link_to "#{student.proper_name}", student_path(student) , class: "links"%>
                   </td>
@@ -125,25 +144,6 @@
 
 
       </div>
-    </div>
-
-
-      
-  </div>
-</div>
-
-<div class = 'card col s4 offset-m1' id ='registrations'>
-    <div  class=' card-content '>
-      <h5 class='col s10'>New Registration:</h5>
-      <% if logged_in? and ((current_user.role?(:admin) or current_user.role? :parent))%>
-        <a href="#" v-on:click="switch_modal"> <i class="material-icons color-icons small">add</i></a>
-        <div v-if="modal_open" class='col s12' >
-
-          <new-registration-form></new-registration-form>
-        </div>
-
-      <% end -%>
-    </div>
   
 
 </div>
@@ -173,7 +173,7 @@
   </div>
 </div>
 
-
+ 
 
 
 
@@ -208,7 +208,8 @@
     <li>
       <% if logged_in? and current_user.role?(:admin) %> 
         <a v-on:click="remove_record(instructor)" class="remove links">x&nbsp;&nbsp;</a>
-      <%end%>
+      <% end %>
+
       {{ instructor.first_name }} {{ instructor.last_name }}
     </li>
 </script>

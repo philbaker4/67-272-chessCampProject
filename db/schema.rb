@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180505220709) do
+ActiveRecord::Schema.define(version: 20180509034422) do
 
   create_table "camp_instructors", force: :cascade do |t|
     t.integer "camp_id"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20180505220709) do
     t.string "parent_first_name"
     t.integer "user_id"
     t.boolean "active", default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["user_id"], name: "index_families_on_user_id"
   end
 
