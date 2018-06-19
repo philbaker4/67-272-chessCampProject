@@ -17,10 +17,10 @@ module Contexts
 
     def create_past_camps
       # assumes create_more_curriculums prior
-      @camp10 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,6,3), end_date: Date.new(2018,6,7), time_slot: "am", location: @cmu)
-      @camp11 = FactoryBot.create(:camp, curriculum: @nimzo, start_date: Date.new(2018,6,3), end_date: Date.new(2018,6,7), time_slot: "pm", location: @north)
-      @camp12 = FactoryBot.create(:camp, curriculum: @positional, start_date: Date.new(2018,6,10), end_date: Date.new(2018,6,14), time_slot: "am", location: @north)
-      @camp13 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,6,10), end_date: Date.new(2018,6,14), time_slot: "pm", location: @north)
+      @camp10 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,8,3), end_date: Date.new(2018,8,7), time_slot: "am", location: @cmu)
+      @camp11 = FactoryBot.create(:camp, curriculum: @nimzo, start_date: Date.new(2018,8,3), end_date: Date.new(2018,8,7), time_slot: "pm", location: @north)
+      @camp12 = FactoryBot.create(:camp, curriculum: @positional, start_date: Date.new(2018,8,10), end_date: Date.new(2018,8,14), time_slot: "am", location: @north)
+      @camp13 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,8,10), end_date: Date.new(2018,8,14), time_slot: "pm", location: @north)
       @camp10.update_attributes(:start_date => Date.new(2017,7,3), :end_date => Date.new(2017,7,7))
       @camp11.update_attributes(:start_date => Date.new(2017,7,3), :end_date => Date.new(2017,7,7))
       @camp12.update_attributes(:start_date => Date.new(2017,7,10), :end_date => Date.new(2017,7,14))
@@ -49,12 +49,12 @@ module Contexts
 
     def create_upcoming_camps
       # assumes create_more_curriculums prior
-      @camp20 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,6,11), end_date: Date.new(2018,6,15), time_slot: "am", location: @north)
-      @camp21 = FactoryBot.create(:camp, curriculum: @nimzo, start_date: Date.new(2018,6,11), end_date: Date.new(2018,6,15), time_slot: "pm", location: @cmu)
-      @camp22 = FactoryBot.create(:camp, curriculum: @positional, start_date: Date.new(2018,6,18), end_date: Date.new(2018,6,22), time_slot: "am", location: @cmu)
-      @camp23 = FactoryBot.create(:camp, curriculum: @openings, start_date: Date.new(2018,6,18), end_date: Date.new(2018,6,22), time_slot: "pm", location: @cmu)
-      @camp24 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,6,25), end_date: Date.new(2018,6,29), time_slot: "am", location: @cmu)
-      @camp25 = FactoryBot.create(:camp, curriculum: @adv_tactics, start_date: Date.new(2018,6,25), end_date: Date.new(2018,6,29), time_slot: "pm", location: @cmu)
+      @camp20 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,7,11), end_date: Date.new(2018,7,15), time_slot: "am", location: @north)
+      @camp21 = FactoryBot.create(:camp, curriculum: @nimzo, start_date: Date.new(2018,7,11), end_date: Date.new(2018,7,15), time_slot: "pm", location: @cmu)
+      @camp22 = FactoryBot.create(:camp, curriculum: @positional, start_date: Date.new(2018,7,18), end_date: Date.new(2018,7,22), time_slot: "am", location: @cmu)
+      @camp23 = FactoryBot.create(:camp, curriculum: @openings, start_date: Date.new(2018,7,18), end_date: Date.new(2018,7,22), time_slot: "pm", location: @cmu)
+      @camp24 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,7,25), end_date: Date.new(2018,7,29), time_slot: "am", location: @cmu)
+      @camp25 = FactoryBot.create(:camp, curriculum: @adv_tactics, start_date: Date.new(2018,7,25), end_date: Date.new(2018,7,29), time_slot: "pm", location: @cmu)
       @camp26 = FactoryBot.create(:camp, curriculum: @principles, start_date: Date.new(2018,7,9), end_date: Date.new(2018,7,13), time_slot: "am", location: @cmu)
       @camp27 = FactoryBot.create(:camp, curriculum: @nimzo, start_date: Date.new(2018,7,9), end_date: Date.new(2018,7,13), time_slot: "pm", location: @cmu)
     end
